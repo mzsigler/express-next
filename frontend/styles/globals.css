@@ -29,7 +29,8 @@ a {
 
 .latest,
 .taxCalculator,
-.balDue {
+.balDue,
+.notes {
   padding: 1.5rem;
 }
 

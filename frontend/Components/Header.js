@@ -20,7 +20,11 @@ export default function Header(){
                         <a>Balance Due</a>
                     </Link>
                 </li>
-                <li>Notes</li>
+                <li>
+                    <Link href="/notes">
+                        <a>Notes</a>
+                    </Link>
+                </li>
             </ul>
         </div>
     )
