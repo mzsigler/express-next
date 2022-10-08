@@ -1,12 +1,24 @@
 import { gql, useQuery } from "@apollo/client"
-import client from "../helpers/apollo-client"
-import { DocumentRenderer } from "@keystone-6/document-renderer";
+import Note from "./Note";
+import styled from "styled-components";
+
+const NotesDivStyles = styled.div`
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 60px;
+justify-items: center;
+border: 1px solid white;
+`
 
 export const ALL_POSTS_QUERY = gql`
 query{
   posts{
     id,
     publishDate,
+    title,
+    author{
+        name
+    }
     content{
       document
     }
@@ -17,17 +29,19 @@ export default function Notes(){
     const { data, error, loading } = useQuery(ALL_POSTS_QUERY);
     if (loading) return <p>Loading...</p>
     if (error) return <p>Error {error.message} </p>
-    const date = (data.posts[0].publishDate);
+    const notes = data.posts;
 
 
     return (
-        <div className="notes">
+        <NotesDivStyles>
+        {console.log(notes)}
+        {notes.map((note) => {
+             return(
+                    <Note key={note.id} note={note}/>
+                
+             )
+        })}
         
-        {data.posts.map((post) => (
-            <DocumentRenderer key={post.id} document={post.content.document} />
-        ))}
-        
-        
-        </div>
+        </NotesDivStyles>
     )
 }
