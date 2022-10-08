@@ -34,6 +34,19 @@ a {
   padding: 1.5rem;
 }
 
+.taxCalcForm {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.taxCalcResults {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  padding: 1.5rem;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
