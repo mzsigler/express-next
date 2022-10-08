@@ -7,7 +7,6 @@ display: grid;
 grid-template-columns: 1fr 1fr;
 gap: 60px;
 justify-items: center;
-border: 1px solid white;
 `
 
 export const ALL_POSTS_QUERY = gql`
