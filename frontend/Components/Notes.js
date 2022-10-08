@@ -18,13 +18,16 @@ export default function Notes(){
     if (loading) return <p>Loading...</p>
     if (error) return <p>Error {error.message} </p>
     const date = (data.posts[0].publishDate);
-    const post = (data.posts[0].content.document);
+
 
     return (
         <div className="notes">
-        <h2>I am the notes page.</h2>
-        <h3>{date}</h3>
-        <DocumentRenderer document={post} />
+        
+        {data.posts.map((post) => (
+            <DocumentRenderer key={post.id} document={post.content.document} />
+        ))}
+        
+        
         </div>
     )
 }
