@@ -11,11 +11,15 @@ export default function Header(){
                     </Link>
                 </li>
                 <li>
-                    <Link href="/page2">
-                        <a>Maintenance</a>
+                    <Link href="/taxCalculator">
+                        <a>Tax Calculator</a>
                     </Link>
                 </li>
-                <li>Balance Due</li>
+                <li>
+                    <Link href="/balDue">
+                        <a>Balance Due</a>
+                    </Link>
+                </li>
                 <li>Notes</li>
             </ul>
         </div>
