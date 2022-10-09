@@ -3,13 +3,68 @@ import { useState } from "react";
 
 export default function TaxCalculator(){
 
-    const [price, setPrice] = useState(0)
+    const [localTax, setLocalTax] = useState(0);
+    const [tnTax, setTnTax] = useState(0);
+    const [singleArticle, setSingleArticle] = useState(0);
+    const [totalTax, setTotalTax] = useState(0);
+    const [totalPrice, setTotalPrice] = useState(0)
 
     function calculate(e){
         e.preventDefault();
-        const purchasePrice = (e.target.form.price.value);
-        setPrice(purchasePrice);
-        console.log(e.target.form.area.value);
+        const purchasePrice = parseInt(e.target.form.price.value);
+        const area = (e.target.form.area.value);
+
+        const stateTx = parseInt(purchasePrice) * 0.07;
+        setTnTax((stateTx).toFixed(2));
+
+        if(purchasePrice > 3200){
+            const singleArticleTx = 44.00;
+            setSingleArticle(singleArticleTx);
+        }
+
+        if(purchasePrice < 1600){
+            const singleArticleTx = 0.00;
+            setSingleArticle(singleArticleTx);
+        }
+
+        if(purchasePrice > 1599 && purchasePrice < 3201){
+            const singleArticleTx = parseInt(purchasePrice) * 0.0275;
+            setSingleArticle((singleArticleTx).toFixed(2));
+        }
+
+        if(area === "unincorporated"){
+            if(purchasePrice > 1600){
+                const localTx = 36.00;
+                setLocalTax(localTx);
+            }
+
+            if(purchasePrice < 1601){
+                const localTx = parseInt(purchasePrice) * 0.0225;
+                setLocalTax((localTx).toFixed(2));
+            }
+        }
+
+        if(area === 'allOther'){
+            if(purchasePrice > 1600){
+                const localTx = 44.00;
+                setLocalTax(localTx);
+            }
+
+            if(purchasePrice < 1601){
+                const localTx = parseInt(purchasePrice) * 0.0275;
+                setLocalTax((localTx).toFixed(2));
+            }
+        }
+
+        const localResult = parseInt(localTax);
+        const stateResult = parseInt(tnTax);
+        const singleResult = parseInt(singleArticle);
+
+        
+        const taxTotal = (localResult + stateResult + singleResult);
+        setTotalTax(taxTotal);
+        const total = taxTotal + purchasePrice
+        setTotalPrice(total)
     }
 
     return(
@@ -28,7 +83,13 @@ export default function TaxCalculator(){
 
             </form>
 
-            <div className="taxCalcResults">Price: {price} </div>
+            <div className="taxCalcResults">
+                <p>TN State Tax: ${tnTax} </p>
+                <p>Local Tax: ${localTax} </p>
+                <p>Single Article Tax: ${singleArticle} </p>
+                <p>Total Tax: ${totalTax} </p>
+                <p>Total Price ${totalPrice}</p>
+            </div>
 
             
 
