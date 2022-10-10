@@ -2,6 +2,7 @@ import { useState } from "react";
 
 
 export default function TaxCalculator(){
+    
 
     const [localTax, setLocalTax] = useState(0);
     const [tnTax, setTnTax] = useState(0);
@@ -15,6 +16,7 @@ export default function TaxCalculator(){
         const area = (e.target.form.area.value);
 
         const stateTx = parseInt(purchasePrice) * 0.07;
+        console.log(stateTx);
         setTnTax((stateTx).toFixed(2));
 
         if(purchasePrice > 3200){
