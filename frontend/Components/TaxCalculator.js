@@ -16,8 +16,9 @@ export default function TaxCalculator(){
         const purchasePrice = parseInt(e.target.form.price.value);
         const area = (e.target.form.area.value);
 
-        const stateTx = parseInt(purchasePrice) * 0.07;
-        setTnTax(Math.round( stateTx * 1e2 ) / 1e2);
+        let stateTx = parseInt(purchasePrice) * 0.07;
+        stateTx = Math.round( stateTx * 1e2 ) / 1e2
+        setTnTax(stateTx);
 
         if(purchasePrice > 3200){
             const singleArticleTx = 44.00;
@@ -41,8 +42,9 @@ export default function TaxCalculator(){
             }
 
             if(purchasePrice < 1601){
-                const localTx = parseInt(purchasePrice) * 0.0225;
-                setLocalTax(Math.round( localTx * 1e2 ) / 1e2);
+                let localTx = parseInt(purchasePrice) * 0.0225;
+                localTx = localTx * 1e2  / 1e2;
+                setLocalTax(localTx);
             }
         }
 
@@ -53,17 +55,15 @@ export default function TaxCalculator(){
             }
 
             if(purchasePrice < 1601){
-                const localTx = parseInt(purchasePrice) * 0.0275;
-                setLocalTax(Math.round( localTx * 1e2 ) / 1e2);
+                let localTx = parseInt(purchasePrice) * 0.0275;
+                localTx = (localTx * 1e2)  / 1e2
+                setLocalTax(localTx);
             }
         }
 
-        const localResult = (localTax);
-        const stateResult = (tnTax);
-        const singleResult = (singleArticle);
 
         
-        const taxTotal = (localResult + stateResult + singleResult);
+        const taxTotal = (localTax + tnTax + singleArticle);
         setTotalTax(taxTotal);
         const total = taxTotal + purchasePrice
         setTotalPrice(total)
