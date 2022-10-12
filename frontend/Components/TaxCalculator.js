@@ -3,13 +3,11 @@ import { useState } from "react";
 
 export default function TaxCalculator(){
 
-
-
-    const [localTax, setLocalTax] = useState(0);
-    const [tnTax, setTnTax] = useState(0);
-    const [singleArticle, setSingleArticle] = useState(0);
-    const [totalTax, setTotalTax] = useState(0);
-    const [totalPrice, setTotalPrice] = useState(0)
+    const [localTax, setLocalTax] = useState();
+    const [tnTax, setTnTax] = useState();
+    const [singleArticle, setSingleArticle] = useState();
+    const [totalTax, setTotalTax] = useState();
+    const [totalPrice, setTotalPrice] = useState()
 
     function calculate(e){
         e.preventDefault();
@@ -31,8 +29,9 @@ export default function TaxCalculator(){
         }
 
         if(purchasePrice > 1599 && purchasePrice < 3201){
-            const singleArticleTx = parseInt(purchasePrice) * 0.0275;
-            setSingleArticle(Math.round( singleArticleTx * 1e2 ) / 1e2);
+            let singleArticleTx = parseInt(purchasePrice) * 0.0275;
+            singleArticleTx = singleArticleTx * 1e2  / 1e2;
+            setSingleArticle(singleArticleTx);
         }
 
         if(area === "unincorporated"){
@@ -80,7 +79,7 @@ export default function TaxCalculator(){
                     <option value="allOther">All Other</option>
                     <option value="unincorporated">Unincorporated Shelby County</option>
                 </select>
-                <button onClick={calculate}>Submit</button>
+                <button type="submit" onClick={calculate}>Submit</button>
                 
 
             </form>
