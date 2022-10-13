@@ -3,6 +3,7 @@ import { useState } from "react";
 
 export default function TaxCalculator(){
 
+    const [purchasePrice, setPurchasePrice] = useState();
     const [localTax, setLocalTax] = useState();
     const [tnTax, setTnTax] = useState();
     const [singleArticle, setSingleArticle] = useState();
@@ -11,7 +12,8 @@ export default function TaxCalculator(){
 
     function calculate(e){
         e.preventDefault();
-        const purchasePrice = parseInt(e.target.form.price.value);
+        const price = parseFloat(e.target.form.price.value);
+        setPurchasePrice(price);
         const area = (e.target.form.area.value);
 
         let stateTx = parseInt(purchasePrice) * 0.07;
@@ -41,7 +43,7 @@ export default function TaxCalculator(){
             }
 
             if(purchasePrice < 1601){
-                let localTx = parseInt(purchasePrice) * 0.0225;
+                let localTx = parseFloat(purchasePrice) * 0.0225;
                 localTx = localTx * 1e2  / 1e2;
                 setLocalTax(localTx);
             }
@@ -89,7 +91,7 @@ export default function TaxCalculator(){
                 <p>Local Tax: ${localTax} </p>
                 <p>Single Article Tax: ${singleArticle} </p>
                 <p>Total Tax: ${totalTax} </p>
-                <p>Total Price ${totalPrice}</p>
+                <p>Total Price: ${totalPrice}</p>
             </div>
 
             
