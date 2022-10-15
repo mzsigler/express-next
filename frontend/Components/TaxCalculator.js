@@ -3,16 +3,27 @@ import { useState } from "react";
 
 export default function TaxCalculator(){
 
-    const [purchasePrice, setPurchasePrice] = useState();
-    const [localTax, setLocalTax] = useState();
-    const [tnTax, setTnTax] = useState();
-    const [singleArticle, setSingleArticle] = useState();
-    const [totalTax, setTotalTax] = useState();
-    const [totalPrice, setTotalPrice] = useState()
+    const [purchasePrice, setPurchasePrice] = useState(0);
+    const [localTax, setLocalTax] = useState(0);
+    const [tnTax, setTnTax] = useState(0);
+    const [singleArticle, setSingleArticle] = useState(0);
+    const [totalTax, setTotalTax] = useState(0);
+    const [totalPrice, setTotalPrice] = useState(0)
+
+
+    function clear(){
+        setPurchasePrice(0);
+        setLocalTax(0);
+        setTnTax(0);
+        setSingleArticle(0);
+        setTotalTax(0);
+        setTotalPrice(0);
+    }
+
 
     function calculate(e){
         e.preventDefault();
-        const price = parseFloat(e.target.form.price.value);
+        const price = parseInt(e.target.form.price.value);
         setPurchasePrice(price);
         const area = (e.target.form.area.value);
 
@@ -56,7 +67,7 @@ export default function TaxCalculator(){
             }
 
             if(purchasePrice < 1601){
-                let localTx = parseInt(purchasePrice) * 0.0275;
+                let localTx = parseFloat(purchasePrice) * 0.0275;
                 localTx = (localTx * 1e2)  / 1e2
                 setLocalTax(localTx);
             }
@@ -68,7 +79,9 @@ export default function TaxCalculator(){
         setTotalTax(taxTotal);
         const total = taxTotal + purchasePrice
         setTotalPrice(total)
+
     }
+
 
     return(
         <div className="taxCalculator">
@@ -82,6 +95,7 @@ export default function TaxCalculator(){
                     <option value="unincorporated">Unincorporated Shelby County</option>
                 </select>
                 <button type="submit" onClick={calculate}>Submit</button>
+                <button onClick={clear}>Clear</button>
                 
 
             </form>
@@ -93,6 +107,8 @@ export default function TaxCalculator(){
                 <p>Total Tax: ${totalTax} </p>
                 <p>Total Price: ${totalPrice}</p>
             </div>
+
+            
 
             
 
