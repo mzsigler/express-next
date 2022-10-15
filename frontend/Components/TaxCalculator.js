@@ -37,32 +37,32 @@ export default function TaxCalculator(){
         const area = (e.target.form.area.value);
 
         let stateTx = parseInt(price) * 0.07;
-        stateTx = Math.round( stateTx * 1e2  / 1e2 )
+        stateTx = Math.round( stateTx * 1e2  / 1e2 );
         setResults({...results, tnTax: stateTx});
 
-        if(purchasePrice > 3200){
+        if(price > 3200){
             const singleArticleTx = 44.00;
             setResults({...results, singleArticle: singleArticleTx});
         }
 
-        if(purchasePrice < 1600){
+        if(price < 1600){
             const singleArticleTx = 0.00;
-            setSingleArticle(singleArticleTx);
+            setResults({...results, singleArticle: singleArticleTx});
         }
 
-        if(purchasePrice > 1599 && purchasePrice < 3201){
+        if(price > 1599 && price < 3201){
             let singleArticleTx = parseInt(purchasePrice) * 0.0275;
             singleArticleTx = singleArticleTx * 1e2  / 1e2;
-            setSingleArticle(singleArticleTx);
+            setResults({...results, singleArticle: singleArticleTx});
         }
 
         if(area === "unincorporated"){
-            if(purchasePrice > 1600){
+            if(price > 1600){
                 const localTx = 36.00;
                 setLocalTax(localTx);
             }
 
-            if(purchasePrice < 1601){
+            if(price < 1601){
                 let localTx = parseFloat(purchasePrice) * 0.0225;
                 localTx = localTx * 1e2  / 1e2;
                 setLocalTax(localTx);
@@ -70,12 +70,12 @@ export default function TaxCalculator(){
         }
 
         if(area === 'allOther'){
-            if(purchasePrice > 1600){
+            if(price > 1600){
                 const localTx = 44.00;
                 setLocalTax(localTx);
             }
 
-            if(purchasePrice < 1601){
+            if(price < 1601){
                 let localTx = parseFloat(purchasePrice) * 0.0275;
                 localTx = (localTx * 1e2)  / 1e2
                 setLocalTax(localTx);
