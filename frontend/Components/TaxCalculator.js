@@ -10,6 +10,15 @@ export default function TaxCalculator(){
     const [totalTax, setTotalTax] = useState(0);
     const [totalPrice, setTotalPrice] = useState(0)
 
+    const [ results, setResults ] = useState({
+        purchasePrice: 0, 
+        localTax: 0, 
+        tnTax: 0, 
+        singleArticle: 0,
+        totalTax: 0, 
+        totalPrice: 0,
+    })
+
 
     function clear(){
         setPurchasePrice(0);
@@ -24,16 +33,16 @@ export default function TaxCalculator(){
     function calculate(e){
         e.preventDefault();
         const price = parseInt(e.target.form.price.value);
-        setPurchasePrice(price);
+        setResults({...results, purchasePrice: price});
         const area = (e.target.form.area.value);
 
-        let stateTx = parseInt(purchasePrice) * 0.07;
-        stateTx = Math.round( stateTx * 1e2 ) / 1e2
-        setTnTax(stateTx);
+        let stateTx = parseInt(price) * 0.07;
+        stateTx = Math.round( stateTx * 1e2  / 1e2 )
+        setResults({...results, tnTax: stateTx});
 
         if(purchasePrice > 3200){
             const singleArticleTx = 44.00;
-            setSingleArticle(singleArticleTx);
+            setResults({...results, singleArticle: singleArticleTx});
         }
 
         if(purchasePrice < 1600){
@@ -101,11 +110,11 @@ export default function TaxCalculator(){
             </form>
 
             <div className="taxCalcResults">
-                <p>TN State Tax: ${tnTax} </p>
-                <p>Local Tax: ${localTax} </p>
-                <p>Single Article Tax: ${singleArticle} </p>
-                <p>Total Tax: ${totalTax} </p>
-                <p>Total Price: ${totalPrice}</p>
+                <p>TN State Tax: ${results.tnTax} </p>
+                <p>Local Tax: ${results.localTax} </p>
+                <p>Single Article Tax: ${results.singleArticle} </p>
+                <p>Total Tax: ${results.totalTax} </p>
+                <p>Total Price: ${results.totalPrice}</p>
             </div>
 
             
