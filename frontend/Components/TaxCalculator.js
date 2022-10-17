@@ -25,11 +25,11 @@ export default function TaxCalculator(){
     function calculate(e){
         e.preventDefault();
         const price = parseInt(e.target.form.price.value);
-        console.log(price)
+        const area = (e.target.form.area.value);
+        console.log(e.target.form.area.value);
 
         let stateTx = parseInt(price) * 0.07;
         stateTx = Math.round( stateTx * 1e2  / 1e2 );
-        console.log(stateTx);
         let singleArticleTx;
         let localTx;
    
@@ -53,19 +53,28 @@ export default function TaxCalculator(){
         }
 
 
-        if(price >= 1600){
-            localTx = 44.00;
-            console.log(localTx)
-
-
+        if(area === "allOther"){
+            if(price >= 1600){
+                localTx = 44.00;
+            }
+                
+    
+            if(price < 1599){
+                localTx = parseFloat(price) * 0.0275;
+                localTx = (localTx * 1e2)  / 1e2;
+            }
         }
-            
 
-        if(price < 1599){
-            localTx = parseFloat(price) * 0.0275;
-            localTx = (localTx * 1e2)  / 1e2;
-
-
+        if(area === "unincorporated"){
+            if(price >= 1600){
+                localTx = 44.00;
+            }
+                
+    
+            if(price < 1599){
+                localTx = parseFloat(price) * 0.0225;
+                localTx = (localTx * 1e2)  / 1e2;
+            }
         }
 
         setResults({...results, 
