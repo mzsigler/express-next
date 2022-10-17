@@ -1,95 +1,84 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
 export default function TaxCalculator(){
 
-    const [purchasePrice, setPurchasePrice] = useState(0);
-    const [localTax, setLocalTax] = useState(0);
-    const [tnTax, setTnTax] = useState(0);
-    const [singleArticle, setSingleArticle] = useState(0);
-    const [totalTax, setTotalTax] = useState(0);
-    const [totalPrice, setTotalPrice] = useState(0)
 
     const [ results, setResults ] = useState({
-        purchasePrice: 0, 
+        purchasePrice: 0,
         localTax: 0, 
-        tnTax: 0, 
+        tnTax: 0,
         singleArticle: 0,
-        totalTax: 0, 
-        totalPrice: 0,
-    })
+    });
 
 
     function clear(){
-        setPurchasePrice(0);
-        setLocalTax(0);
-        setTnTax(0);
-        setSingleArticle(0);
-        setTotalTax(0);
-        setTotalPrice(0);
+        setResults({
+            purchasePrice: 0, 
+            localTax: 0, 
+            tnTax: 0, 
+            singleArticle: 0,
+        })
     }
 
 
     function calculate(e){
         e.preventDefault();
         const price = parseInt(e.target.form.price.value);
-        setResults({...results, purchasePrice: price});
-        const area = (e.target.form.area.value);
+        console.log(price)
 
         let stateTx = parseInt(price) * 0.07;
         stateTx = Math.round( stateTx * 1e2  / 1e2 );
-        setResults({...results, tnTax: stateTx});
+        console.log(stateTx);
+        let singleArticleTx;
+        let localTx;
+   
 
         if(price > 3200){
-            const singleArticleTx = 44.00;
-            setResults({...results, singleArticle: singleArticleTx});
+            singleArticleTx = 44.00;
+            console.log(singleArticleTx)
+
         }
 
         if(price < 1600){
-            const singleArticleTx = 0.00;
-            setResults({...results, singleArticle: singleArticleTx});
+            singleArticleTx = 0.00;
+
         }
 
         if(price > 1599 && price < 3201){
-            let singleArticleTx = parseInt(purchasePrice) * 0.0275;
-            singleArticleTx = singleArticleTx * 1e2  / 1e2;
-            setResults({...results, singleArticle: singleArticleTx});
-        }
+            singleArticleTx = parseFloat(price) * 0.0275;
+            singleArticleTx = (singleArticleTx * 1e2  / 1e2);
 
-        if(area === "unincorporated"){
-            if(price > 1600){
-                const localTx = 36.00;
-                setLocalTax(localTx);
-            }
 
-            if(price < 1601){
-                let localTx = parseFloat(purchasePrice) * 0.0225;
-                localTx = localTx * 1e2  / 1e2;
-                setLocalTax(localTx);
-            }
-        }
-
-        if(area === 'allOther'){
-            if(price > 1600){
-                const localTx = 44.00;
-                setLocalTax(localTx);
-            }
-
-            if(price < 1601){
-                let localTx = parseFloat(purchasePrice) * 0.0275;
-                localTx = (localTx * 1e2)  / 1e2
-                setLocalTax(localTx);
-            }
         }
 
 
-        
-        const taxTotal = (localTax + tnTax + singleArticle);
-        setTotalTax(taxTotal);
-        const total = taxTotal + purchasePrice
-        setTotalPrice(total)
+        if(price >= 1600){
+            localTx = 44.00;
+            console.log(localTx)
 
-    }
+
+        }
+            
+
+        if(price < 1599){
+            localTx = parseFloat(price) * 0.0275;
+            localTx = (localTx * 1e2)  / 1e2;
+
+
+        }
+
+        setResults({...results, 
+            purchasePrice: price, 
+            localTax: localTx, 
+            tnTax: stateTx, 
+            singleArticle: singleArticleTx,});
+
+
+    };
+
+
+
 
 
     return(
@@ -113,8 +102,8 @@ export default function TaxCalculator(){
                 <p>TN State Tax: ${results.tnTax} </p>
                 <p>Local Tax: ${results.localTax} </p>
                 <p>Single Article Tax: ${results.singleArticle} </p>
-                <p>Total Tax: ${results.totalTax} </p>
-                <p>Total Price: ${results.totalPrice}</p>
+                <p>Total Tax: ${(results.singleArticle + results.localTax + results.tnTax).toFixed(2)} </p>
+                <p>Total Price: ${(results.purchasePrice + results.singleArticle + results.localTax + results.tnTax).toFixed(2)}</p>
             </div>
 
             
