@@ -61,7 +61,7 @@ export default function TaxCalculator(){
 
         if(area === "unincorporated"){
             if(price >= 1600){
-                localTx = 44.00;
+                localTx = 36.00;
             }
                 
     
