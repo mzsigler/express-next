@@ -13,7 +13,7 @@ export default function TaxCalculator(){
 
 
     function clear(){
-        setResults({
+        setResults({...results,
             purchasePrice: 0, 
             localTax: 0, 
             tnTax: 0, 
