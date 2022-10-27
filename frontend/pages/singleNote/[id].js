@@ -1,33 +1,50 @@
-import { useQuery } from "@apollo/client";
+import { useQuery, gql } from "@apollo/client";
 import { useRouter } from "next/router";
 import Header from "../../Components/Header";
-import gql from "@apollo/client";
+import { DocumentRenderer } from "@keystone-6/document-renderer";
+
+
+    const SINGLE_POST_QUERY = gql`
+    query($id: ID!){
+    post(where: { id: $id}){
+    title
+    publishDate
+    author {
+    name
+    }
+    content {
+    document
+    }
+    }
+    }`
 
 export default function SingleNote(){
     const router = useRouter();
     const { id } = router.query;
     console.log(id);
+ 
 
-    const SINGLE_POST_QUERY = gql`
-    query($id: ID!){
-  post(where: { id: $id}){
-    title
-    publishDate
-    author {
-      name
-    }
-    content {
-      document
-    }
-  }
-}
- `
+    const { data, loading, error } = useQuery(SINGLE_POST_QUERY, {
+        variables: {
+            id,
+        },
+    });
 
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error</p>;
+    const note = data.post;
+    console.log(note.author.name);
 
     return (
-        <div className="singleNote">
+        <div className="singleNotePage">
             <Header />
-            <p>Hey I am a single note. </p>
+            <div className="displayNote">
+                <h2>{note.title}</h2>
+                <p>{note.publishDate} </p>
+                <p>By: {note.author.name} </p>
+                <p><DocumentRenderer document={note.content.document} /></p>
+
+            </div>
         </div>
     )
 }
