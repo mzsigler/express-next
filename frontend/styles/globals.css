@@ -30,7 +30,8 @@ a {
 .latest,
 .taxCalculator,
 .balDue,
-.notes {
+.notes,
+.displayNote {
   padding: 1.5rem;
 }
 

@@ -35,7 +35,6 @@ export default function Notes(){
 
     return (
         <NotesDivStyles>
-        {console.log(notes)}
         {notes.map((note) => {
              return(
                     <Note key={note.id} note={note}/>
