@@ -3,6 +3,8 @@ import { useRouter } from "next/router";
 import Header from "../../Components/Header";
 import { DocumentRenderer } from "@keystone-6/document-renderer";
 
+//TODO maybe comments on notes would be useful
+
 
     const SINGLE_POST_QUERY = gql`
     query($id: ID!){
@@ -42,7 +44,7 @@ export default function SingleNote(){
                 <h2>{note.title}</h2>
                 <p>{note.publishDate} </p>
                 <p>By: {note.author.name} </p>
-                <p><DocumentRenderer document={note.content.document} /></p>
+                <DocumentRenderer document={note.content.document} />
 
             </div>
         </div>
