@@ -34,13 +34,16 @@ export default function SingleNote(){
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error</p>;
     const note = data.post;
+    const pubDate = new Date(note.publishDate);
+    const displayDate = pubDate.toLocaleString();
+    console.log(displayDate);
 
     return (
         <div className="singleNotePage">
             <Header />
             <div className="displayNote">
                 <h2>{note.title}</h2>
-                <p>{note.publishDate} </p>
+                <p>{displayDate}</p>
                 <p>By: {note.author.name} </p>
                 <DocumentRenderer document={note.content.document} />
 
