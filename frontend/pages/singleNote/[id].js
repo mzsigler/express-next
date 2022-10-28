@@ -36,7 +36,6 @@ export default function SingleNote(){
     const note = data.post;
     const pubDate = new Date(note.publishDate);
     const displayDate = pubDate.toLocaleString();
-    console.log(displayDate);
 
     return (
         <div className="singleNotePage">
