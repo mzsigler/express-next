@@ -25,6 +25,7 @@ import {
   password,
   timestamp,
   select,
+  float,
   integer,
 } from '@keystone-6/core/fields';
 // The document field is a more complicated field, so it's in its own package
@@ -37,6 +38,7 @@ import { document } from '@keystone-6/fields-document';
 // our types to a stricter subset that is type-aware of other lists in our schema
 // that Typescript cannot easily infer.
 import { Lists } from '.keystone/types';
+import { isExpressionStatement } from 'typescript';
 
 // We have a users list, a blogs list, and tags for blog posts, so they can be filtered.
 // Each property on the exported object will become the name of a list (a.k.a. the `listKey`),
@@ -115,7 +117,6 @@ export const lists: Lists = {
           inlineConnect: true,
         },
       }),
-      // We also link posts to tags. This is a many <=> many linking.
       tags: relationship({
         ref: 'Tag.posts',
         ui: {
@@ -130,7 +131,6 @@ export const lists: Lists = {
       }),
     },
   }),
-  // Our final list is the tag list. This field is just a name and a relationship to posts
   Tag: list({
     ui: {
       isHidden: true,
@@ -145,16 +145,28 @@ export const lists: Lists = {
       year: integer(),
       make: text(),
       model: text(),
-      miles: integer(),
       inv: text(),
-      payments: relationship({ ref: 'Payment.car', many: true }),
+      income: relationship({ ref: 'Income.car', many: true }),
+      expense: relationship({ ref: 'Expense.car', many: true }),
+    },
+    ui: {
+      labelField: "inv",
+    },
+  }),
+  Income: list({
+    fields: {
+      income: float(),
+      car: relationship({ ref: 'Car.income' }),
+    },
+    ui: {
+      labelField: "car",
     }
   }),
-  Payment: list({
+  Expense: list({
     fields: {
-      payment: integer(),
-      car: relationship({ ref: 'Car.payments' }),
-    }
+      expense: float(),
+      car: relationship({ ref: 'Car.expense' }),
+    },
   }),
 
 };
