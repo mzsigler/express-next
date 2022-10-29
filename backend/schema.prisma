@@ -52,8 +52,9 @@ model Car {
 
 model Income {
   id        String    @id @default(cuid())
-  income    Float?
+  amount    Float?
   customer  String    @default("")
+  notes     String    @default("")
   closeDate DateTime?
   car       Car?      @relation("Income_car", fields: [carId], references: [id])
   carId     String?   @map("car")
@@ -62,12 +63,14 @@ model Income {
 }
 
 model Expense {
-  id      String    @id @default(cuid())
-  expense Float?
-  vendor  String    @default("")
-  date    DateTime?
-  car     Car?      @relation("Expense_car", fields: [carId], references: [id])
-  carId   String?   @map("car")
+  id            String    @id @default(cuid())
+  amount        Float?
+  vendor        String    @default("")
+  description   String    @default("")
+  date          DateTime?
+  receiptNumber String    @default("")
+  car           Car?      @relation("Expense_car", fields: [carId], references: [id])
+  carId         String?   @map("car")
 
   @@index([carId])
 }

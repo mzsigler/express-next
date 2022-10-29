@@ -148,7 +148,10 @@ export const lists: Lists = {
       model: text(),
       inv: text(),
       vin: text(),
-      income: relationship({ ref: "Income.car", many: true }),
+      income: relationship({
+        ref: "Income.car",
+        many: true
+      }),
       expense: relationship({ ref: "Expense.car", many: true }),
     },
     ui: {
@@ -157,17 +160,20 @@ export const lists: Lists = {
   }),
   Income: list({
     fields: {
-      income: float(),
+      amount: float(),
       customer: text(),
+      notes: text(),
       closeDate: timestamp(),
       car: relationship({ ref: "Car.income" }),
     },
   }),
   Expense: list({
     fields: {
-      expense: float(),
+      amount: float(),
       vendor: text(),
+      description: text(),
       date: timestamp(),
+      receiptNumber: text(),
       car: relationship({ ref: "Car.expense" }),
     },
   }),

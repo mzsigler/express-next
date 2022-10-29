@@ -427,8 +427,9 @@ input ExpenseRelateToManyForCreateInput {
 
 type Income {
   id: ID!
-  income: Float
+  amount: Float
   customer: String
+  notes: String
   closeDate: DateTime
   car: Car
 }
@@ -442,8 +443,9 @@ input IncomeWhereInput {
   OR: [IncomeWhereInput!]
   NOT: [IncomeWhereInput!]
   id: IDFilter
-  income: FloatNullableFilter
+  amount: FloatNullableFilter
   customer: StringFilter
+  notes: StringFilter
   closeDate: DateTimeNullableFilter
   car: CarWhereInput
 }
@@ -461,14 +463,16 @@ input FloatNullableFilter {
 
 input IncomeOrderByInput {
   id: OrderDirection
-  income: OrderDirection
+  amount: OrderDirection
   customer: OrderDirection
+  notes: OrderDirection
   closeDate: OrderDirection
 }
 
 input IncomeUpdateInput {
-  income: Float
+  amount: Float
   customer: String
+  notes: String
   closeDate: DateTime
   car: CarRelateToOneForUpdateInput
 }
@@ -485,8 +489,9 @@ input IncomeUpdateArgs {
 }
 
 input IncomeCreateInput {
-  income: Float
+  amount: Float
   customer: String
+  notes: String
   closeDate: DateTime
   car: CarRelateToOneForCreateInput
 }
@@ -498,9 +503,11 @@ input CarRelateToOneForCreateInput {
 
 type Expense {
   id: ID!
-  expense: Float
+  amount: Float
   vendor: String
+  description: String
   date: DateTime
+  receiptNumber: String
   car: Car
 }
 
@@ -513,23 +520,29 @@ input ExpenseWhereInput {
   OR: [ExpenseWhereInput!]
   NOT: [ExpenseWhereInput!]
   id: IDFilter
-  expense: FloatNullableFilter
+  amount: FloatNullableFilter
   vendor: StringFilter
+  description: StringFilter
   date: DateTimeNullableFilter
+  receiptNumber: StringFilter
   car: CarWhereInput
 }
 
 input ExpenseOrderByInput {
   id: OrderDirection
-  expense: OrderDirection
+  amount: OrderDirection
   vendor: OrderDirection
+  description: OrderDirection
   date: OrderDirection
+  receiptNumber: OrderDirection
 }
 
 input ExpenseUpdateInput {
-  expense: Float
+  amount: Float
   vendor: String
+  description: String
   date: DateTime
+  receiptNumber: String
   car: CarRelateToOneForUpdateInput
 }
 
@@ -539,9 +552,11 @@ input ExpenseUpdateArgs {
 }
 
 input ExpenseCreateInput {
-  expense: Float
+  amount: Float
   vendor: String
+  description: String
   date: DateTime
+  receiptNumber: String
   car: CarRelateToOneForCreateInput
 }
 
