@@ -25,6 +25,7 @@ import {
   password,
   timestamp,
   select,
+  integer,
 } from '@keystone-6/core/fields';
 // The document field is a more complicated field, so it's in its own package
 // Keystone aims to have all the base field types, but you can make your own
@@ -139,4 +140,13 @@ export const lists: Lists = {
       posts: relationship({ ref: 'Post.tags', many: true }),
     },
   }),
+  Car: list({
+    fields: {
+      year: integer(),
+      make: text(),
+      model: text(),
+      miles: integer(),
+
+    }
+  })
 };

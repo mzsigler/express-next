@@ -303,6 +303,67 @@ input TagCreateInput {
   posts: PostRelateToManyForCreateInput
 }
 
+type Car {
+  id: ID!
+  year: Int
+  make: String
+  model: String
+  miles: Int
+}
+
+input CarWhereUniqueInput {
+  id: ID
+}
+
+input CarWhereInput {
+  AND: [CarWhereInput!]
+  OR: [CarWhereInput!]
+  NOT: [CarWhereInput!]
+  id: IDFilter
+  year: IntNullableFilter
+  make: StringFilter
+  model: StringFilter
+  miles: IntNullableFilter
+}
+
+input IntNullableFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: IntNullableFilter
+}
+
+input CarOrderByInput {
+  id: OrderDirection
+  year: OrderDirection
+  make: OrderDirection
+  model: OrderDirection
+  miles: OrderDirection
+}
+
+input CarUpdateInput {
+  year: Int
+  make: String
+  model: String
+  miles: Int
+}
+
+input CarUpdateArgs {
+  where: CarWhereUniqueInput!
+  data: CarUpdateInput!
+}
+
+input CarCreateInput {
+  year: Int
+  make: String
+  model: String
+  miles: Int
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -330,6 +391,12 @@ type Mutation {
   updateTags(data: [TagUpdateArgs!]!): [Tag]
   deleteTag(where: TagWhereUniqueInput!): Tag
   deleteTags(where: [TagWhereUniqueInput!]!): [Tag]
+  createCar(data: CarCreateInput!): Car
+  createCars(data: [CarCreateInput!]!): [Car]
+  updateCar(where: CarWhereUniqueInput!, data: CarUpdateInput!): Car
+  updateCars(data: [CarUpdateArgs!]!): [Car]
+  deleteCar(where: CarWhereUniqueInput!): Car
+  deleteCars(where: [CarWhereUniqueInput!]!): [Car]
   endSession: Boolean!
   authenticateUserWithPassword(
     email: String!
@@ -384,6 +451,14 @@ type Query {
   ): [Tag!]
   tag(where: TagWhereUniqueInput!): Tag
   tagsCount(where: TagWhereInput! = {}): Int
+  cars(
+    where: CarWhereInput! = {}
+    orderBy: [CarOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Car!]
+  car(where: CarWhereUniqueInput!): Car
+  carsCount(where: CarWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }
