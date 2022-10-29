@@ -56,6 +56,7 @@ model Income {
   customer  String    @default("")
   notes     String    @default("")
   closeDate DateTime?
+  mileage   Int?
   car       Car?      @relation("Income_car", fields: [carId], references: [id])
   carId     String?   @map("car")
 
@@ -68,9 +69,18 @@ model Expense {
   vendor        String    @default("")
   description   String    @default("")
   date          DateTime?
+  mileage       Int?
   receiptNumber String    @default("")
   car           Car?      @relation("Expense_car", fields: [carId], references: [id])
   carId         String?   @map("car")
 
   @@index([carId])
+}
+
+model Balance {
+  id         String    @id @default(cuid())
+  name       String    @default("")
+  returnDate DateTime?
+  amount     Float?
+  social     Int?
 }

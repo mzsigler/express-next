@@ -431,6 +431,7 @@ type Income {
   customer: String
   notes: String
   closeDate: DateTime
+  mileage: Int
   car: Car
 }
 
@@ -447,6 +448,7 @@ input IncomeWhereInput {
   customer: StringFilter
   notes: StringFilter
   closeDate: DateTimeNullableFilter
+  mileage: IntNullableFilter
   car: CarWhereInput
 }
 
@@ -467,6 +469,7 @@ input IncomeOrderByInput {
   customer: OrderDirection
   notes: OrderDirection
   closeDate: OrderDirection
+  mileage: OrderDirection
 }
 
 input IncomeUpdateInput {
@@ -474,6 +477,7 @@ input IncomeUpdateInput {
   customer: String
   notes: String
   closeDate: DateTime
+  mileage: Int
   car: CarRelateToOneForUpdateInput
 }
 
@@ -493,6 +497,7 @@ input IncomeCreateInput {
   customer: String
   notes: String
   closeDate: DateTime
+  mileage: Int
   car: CarRelateToOneForCreateInput
 }
 
@@ -507,6 +512,7 @@ type Expense {
   vendor: String
   description: String
   date: DateTime
+  mileage: Int
   receiptNumber: String
   car: Car
 }
@@ -524,6 +530,7 @@ input ExpenseWhereInput {
   vendor: StringFilter
   description: StringFilter
   date: DateTimeNullableFilter
+  mileage: IntNullableFilter
   receiptNumber: StringFilter
   car: CarWhereInput
 }
@@ -534,6 +541,7 @@ input ExpenseOrderByInput {
   vendor: OrderDirection
   description: OrderDirection
   date: OrderDirection
+  mileage: OrderDirection
   receiptNumber: OrderDirection
 }
 
@@ -542,6 +550,7 @@ input ExpenseUpdateInput {
   vendor: String
   description: String
   date: DateTime
+  mileage: Int
   receiptNumber: String
   car: CarRelateToOneForUpdateInput
 }
@@ -556,8 +565,59 @@ input ExpenseCreateInput {
   vendor: String
   description: String
   date: DateTime
+  mileage: Int
   receiptNumber: String
   car: CarRelateToOneForCreateInput
+}
+
+type Balance {
+  id: ID!
+  name: String
+  returnDate: DateTime
+  amount: Float
+  social: Int
+}
+
+input BalanceWhereUniqueInput {
+  id: ID
+}
+
+input BalanceWhereInput {
+  AND: [BalanceWhereInput!]
+  OR: [BalanceWhereInput!]
+  NOT: [BalanceWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  returnDate: DateTimeNullableFilter
+  amount: FloatNullableFilter
+  social: IntNullableFilter
+}
+
+input BalanceOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  returnDate: OrderDirection
+  amount: OrderDirection
+  social: OrderDirection
+}
+
+input BalanceUpdateInput {
+  name: String
+  returnDate: DateTime
+  amount: Float
+  social: Int
+}
+
+input BalanceUpdateArgs {
+  where: BalanceWhereUniqueInput!
+  data: BalanceUpdateInput!
+}
+
+input BalanceCreateInput {
+  name: String
+  returnDate: DateTime
+  amount: Float
+  social: Int
 }
 
 """
@@ -608,6 +668,15 @@ type Mutation {
   updateExpenses(data: [ExpenseUpdateArgs!]!): [Expense]
   deleteExpense(where: ExpenseWhereUniqueInput!): Expense
   deleteExpenses(where: [ExpenseWhereUniqueInput!]!): [Expense]
+  createBalance(data: BalanceCreateInput!): Balance
+  createBalances(data: [BalanceCreateInput!]!): [Balance]
+  updateBalance(
+    where: BalanceWhereUniqueInput!
+    data: BalanceUpdateInput!
+  ): Balance
+  updateBalances(data: [BalanceUpdateArgs!]!): [Balance]
+  deleteBalance(where: BalanceWhereUniqueInput!): Balance
+  deleteBalances(where: [BalanceWhereUniqueInput!]!): [Balance]
   endSession: Boolean!
   authenticateUserWithPassword(
     email: String!
@@ -686,6 +755,14 @@ type Query {
   ): [Expense!]
   expense(where: ExpenseWhereUniqueInput!): Expense
   expensesCount(where: ExpenseWhereInput! = {}): Int
+  balances(
+    where: BalanceWhereInput! = {}
+    orderBy: [BalanceOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Balance!]
+  balance(where: BalanceWhereUniqueInput!): Balance
+  balancesCount(where: BalanceWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }

@@ -164,6 +164,7 @@ export const lists: Lists = {
       customer: text(),
       notes: text(),
       closeDate: timestamp(),
+      mileage: integer(),
       car: relationship({ ref: "Car.income" }),
     },
   }),
@@ -173,9 +174,18 @@ export const lists: Lists = {
       vendor: text(),
       description: text(),
       date: timestamp(),
+      mileage: integer(),
       receiptNumber: text(),
       car: relationship({ ref: "Car.expense" }),
     },
+  }),
+  Balance: list({
+    fields: {
+      name: text(),
+      returnDate: timestamp(),
+      amount: float(),
+      social: integer(),
+    }
   }),
 
 };
