@@ -39,6 +39,7 @@ import { document } from '@keystone-6/fields-document';
 // that Typescript cannot easily infer.
 import { Lists } from '.keystone/types';
 import { isExpressionStatement } from 'typescript';
+import { DateTime } from '@keystone-6/core/dist/declarations/src/types/schema/graphql-ts-schema';
 
 // We have a users list, a blogs list, and tags for blog posts, so they can be filtered.
 // Each property on the exported object will become the name of a list (a.k.a. the `listKey`),
@@ -146,6 +147,7 @@ export const lists: Lists = {
       make: text(),
       model: text(),
       inv: text(),
+      vin: text(),
       income: relationship({ ref: 'Income.car', many: true }),
       expense: relationship({ ref: 'Expense.car', many: true }),
     },
@@ -156,6 +158,8 @@ export const lists: Lists = {
   Income: list({
     fields: {
       income: float(),
+      customer: text(),
+      closeDate: timestamp(),
       car: relationship({ ref: 'Car.income' }),
     },
     ui: {
@@ -165,6 +169,8 @@ export const lists: Lists = {
   Expense: list({
     fields: {
       expense: float(),
+      vendor: text(),
+      date: timestamp(),
       car: relationship({ ref: 'Car.expense' }),
     },
     ui: {

@@ -309,6 +309,7 @@ type Car {
   make: String
   model: String
   inv: String
+  vin: String
   income(
     where: IncomeWhereInput! = {}
     orderBy: [IncomeOrderByInput!]! = []
@@ -338,6 +339,7 @@ input CarWhereInput {
   make: StringFilter
   model: StringFilter
   inv: StringFilter
+  vin: StringFilter
   income: IncomeManyRelationFilter
   expense: ExpenseManyRelationFilter
 }
@@ -371,6 +373,7 @@ input CarOrderByInput {
   make: OrderDirection
   model: OrderDirection
   inv: OrderDirection
+  vin: OrderDirection
 }
 
 input CarUpdateInput {
@@ -378,6 +381,7 @@ input CarUpdateInput {
   make: String
   model: String
   inv: String
+  vin: String
   income: IncomeRelateToManyForUpdateInput
   expense: ExpenseRelateToManyForUpdateInput
 }
@@ -406,6 +410,7 @@ input CarCreateInput {
   make: String
   model: String
   inv: String
+  vin: String
   income: IncomeRelateToManyForCreateInput
   expense: ExpenseRelateToManyForCreateInput
 }
@@ -423,6 +428,8 @@ input ExpenseRelateToManyForCreateInput {
 type Income {
   id: ID!
   income: Float
+  customer: String
+  closeDate: DateTime
   car: Car
 }
 
@@ -436,6 +443,8 @@ input IncomeWhereInput {
   NOT: [IncomeWhereInput!]
   id: IDFilter
   income: FloatNullableFilter
+  customer: StringFilter
+  closeDate: DateTimeNullableFilter
   car: CarWhereInput
 }
 
@@ -453,10 +462,14 @@ input FloatNullableFilter {
 input IncomeOrderByInput {
   id: OrderDirection
   income: OrderDirection
+  customer: OrderDirection
+  closeDate: OrderDirection
 }
 
 input IncomeUpdateInput {
   income: Float
+  customer: String
+  closeDate: DateTime
   car: CarRelateToOneForUpdateInput
 }
 
@@ -473,6 +486,8 @@ input IncomeUpdateArgs {
 
 input IncomeCreateInput {
   income: Float
+  customer: String
+  closeDate: DateTime
   car: CarRelateToOneForCreateInput
 }
 
@@ -484,6 +499,8 @@ input CarRelateToOneForCreateInput {
 type Expense {
   id: ID!
   expense: Float
+  vendor: String
+  date: DateTime
   car: Car
 }
 
@@ -497,16 +514,22 @@ input ExpenseWhereInput {
   NOT: [ExpenseWhereInput!]
   id: IDFilter
   expense: FloatNullableFilter
+  vendor: StringFilter
+  date: DateTimeNullableFilter
   car: CarWhereInput
 }
 
 input ExpenseOrderByInput {
   id: OrderDirection
   expense: OrderDirection
+  vendor: OrderDirection
+  date: OrderDirection
 }
 
 input ExpenseUpdateInput {
   expense: Float
+  vendor: String
+  date: DateTime
   car: CarRelateToOneForUpdateInput
 }
 
@@ -517,6 +540,8 @@ input ExpenseUpdateArgs {
 
 input ExpenseCreateInput {
   expense: Float
+  vendor: String
+  date: DateTime
   car: CarRelateToOneForCreateInput
 }
 
