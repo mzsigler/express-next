@@ -310,6 +310,13 @@ type Car {
   model: String
   miles: Int
   inv: String
+  payments(
+    where: PaymentWhereInput! = {}
+    orderBy: [PaymentOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Payment!]
+  paymentsCount(where: PaymentWhereInput! = {}): Int
 }
 
 input CarWhereUniqueInput {
@@ -326,6 +333,7 @@ input CarWhereInput {
   model: StringFilter
   miles: IntNullableFilter
   inv: StringFilter
+  payments: PaymentManyRelationFilter
 }
 
 input IntNullableFilter {
@@ -337,6 +345,12 @@ input IntNullableFilter {
   gt: Int
   gte: Int
   not: IntNullableFilter
+}
+
+input PaymentManyRelationFilter {
+  every: PaymentWhereInput
+  some: PaymentWhereInput
+  none: PaymentWhereInput
 }
 
 input CarOrderByInput {
@@ -354,6 +368,14 @@ input CarUpdateInput {
   model: String
   miles: Int
   inv: String
+  payments: PaymentRelateToManyForUpdateInput
+}
+
+input PaymentRelateToManyForUpdateInput {
+  disconnect: [PaymentWhereUniqueInput!]
+  set: [PaymentWhereUniqueInput!]
+  create: [PaymentCreateInput!]
+  connect: [PaymentWhereUniqueInput!]
 }
 
 input CarUpdateArgs {
@@ -367,11 +389,18 @@ input CarCreateInput {
   model: String
   miles: Int
   inv: String
+  payments: PaymentRelateToManyForCreateInput
+}
+
+input PaymentRelateToManyForCreateInput {
+  create: [PaymentCreateInput!]
+  connect: [PaymentWhereUniqueInput!]
 }
 
 type Payment {
   id: ID!
   payment: Int
+  car: Car
 }
 
 input PaymentWhereUniqueInput {
@@ -384,6 +413,7 @@ input PaymentWhereInput {
   NOT: [PaymentWhereInput!]
   id: IDFilter
   payment: IntNullableFilter
+  car: CarWhereInput
 }
 
 input PaymentOrderByInput {
@@ -393,6 +423,13 @@ input PaymentOrderByInput {
 
 input PaymentUpdateInput {
   payment: Int
+  car: CarRelateToOneForUpdateInput
+}
+
+input CarRelateToOneForUpdateInput {
+  create: CarCreateInput
+  connect: CarWhereUniqueInput
+  disconnect: Boolean
 }
 
 input PaymentUpdateArgs {
@@ -402,6 +439,12 @@ input PaymentUpdateArgs {
 
 input PaymentCreateInput {
   payment: Int
+  car: CarRelateToOneForCreateInput
+}
+
+input CarRelateToOneForCreateInput {
+  create: CarCreateInput
+  connect: CarWhereUniqueInput
 }
 
 """

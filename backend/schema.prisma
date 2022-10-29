@@ -40,15 +40,20 @@ model Tag {
 }
 
 model Car {
-  id    String @id @default(cuid())
-  year  Int?
-  make  String @default("")
-  model String @default("")
-  miles Int?
-  inv   String @default("")
+  id       String    @id @default(cuid())
+  year     Int?
+  make     String    @default("")
+  model    String    @default("")
+  miles    Int?
+  inv      String    @default("")
+  payments Payment[] @relation("Payment_car")
 }
 
 model Payment {
-  id      String @id @default(cuid())
+  id      String  @id @default(cuid())
   payment Int?
+  car     Car?    @relation("Payment_car", fields: [carId], references: [id])
+  carId   String? @map("car")
+
+  @@index([carId])
 }

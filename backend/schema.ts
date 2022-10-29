@@ -147,11 +147,14 @@ export const lists: Lists = {
       model: text(),
       miles: integer(),
       inv: text(),
+      payments: relationship({ ref: 'Payment.car', many: true }),
     }
   }),
   Payment: list({
     fields: {
       payment: integer(),
+      car: relationship({ ref: 'Car.payments' }),
     }
-  })
+  }),
+
 };
