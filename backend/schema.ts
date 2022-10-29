@@ -167,6 +167,9 @@ export const lists: Lists = {
       expense: float(),
       car: relationship({ ref: 'Car.expense' }),
     },
+    ui: {
+      labelField: "car",
+    }
   }),
 
 };
