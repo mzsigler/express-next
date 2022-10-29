@@ -45,4 +45,10 @@ model Car {
   make  String @default("")
   model String @default("")
   miles Int?
+  inv   String @default("")
+}
+
+model Payment {
+  id      String @id @default(cuid())
+  payment Int?
 }

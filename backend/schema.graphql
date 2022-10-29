@@ -309,6 +309,7 @@ type Car {
   make: String
   model: String
   miles: Int
+  inv: String
 }
 
 input CarWhereUniqueInput {
@@ -324,6 +325,7 @@ input CarWhereInput {
   make: StringFilter
   model: StringFilter
   miles: IntNullableFilter
+  inv: StringFilter
 }
 
 input IntNullableFilter {
@@ -343,6 +345,7 @@ input CarOrderByInput {
   make: OrderDirection
   model: OrderDirection
   miles: OrderDirection
+  inv: OrderDirection
 }
 
 input CarUpdateInput {
@@ -350,6 +353,7 @@ input CarUpdateInput {
   make: String
   model: String
   miles: Int
+  inv: String
 }
 
 input CarUpdateArgs {
@@ -362,6 +366,42 @@ input CarCreateInput {
   make: String
   model: String
   miles: Int
+  inv: String
+}
+
+type Payment {
+  id: ID!
+  payment: Int
+}
+
+input PaymentWhereUniqueInput {
+  id: ID
+}
+
+input PaymentWhereInput {
+  AND: [PaymentWhereInput!]
+  OR: [PaymentWhereInput!]
+  NOT: [PaymentWhereInput!]
+  id: IDFilter
+  payment: IntNullableFilter
+}
+
+input PaymentOrderByInput {
+  id: OrderDirection
+  payment: OrderDirection
+}
+
+input PaymentUpdateInput {
+  payment: Int
+}
+
+input PaymentUpdateArgs {
+  where: PaymentWhereUniqueInput!
+  data: PaymentUpdateInput!
+}
+
+input PaymentCreateInput {
+  payment: Int
 }
 
 """
@@ -397,6 +437,15 @@ type Mutation {
   updateCars(data: [CarUpdateArgs!]!): [Car]
   deleteCar(where: CarWhereUniqueInput!): Car
   deleteCars(where: [CarWhereUniqueInput!]!): [Car]
+  createPayment(data: PaymentCreateInput!): Payment
+  createPayments(data: [PaymentCreateInput!]!): [Payment]
+  updatePayment(
+    where: PaymentWhereUniqueInput!
+    data: PaymentUpdateInput!
+  ): Payment
+  updatePayments(data: [PaymentUpdateArgs!]!): [Payment]
+  deletePayment(where: PaymentWhereUniqueInput!): Payment
+  deletePayments(where: [PaymentWhereUniqueInput!]!): [Payment]
   endSession: Boolean!
   authenticateUserWithPassword(
     email: String!
@@ -459,6 +508,14 @@ type Query {
   ): [Car!]
   car(where: CarWhereUniqueInput!): Car
   carsCount(where: CarWhereInput! = {}): Int
+  payments(
+    where: PaymentWhereInput! = {}
+    orderBy: [PaymentOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Payment!]
+  payment(where: PaymentWhereUniqueInput!): Payment
+  paymentsCount(where: PaymentWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }

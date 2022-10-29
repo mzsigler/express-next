@@ -146,7 +146,12 @@ export const lists: Lists = {
       make: text(),
       model: text(),
       miles: integer(),
-
+      inv: text(),
+    }
+  }),
+  Payment: list({
+    fields: {
+      payment: integer(),
     }
   })
 };
