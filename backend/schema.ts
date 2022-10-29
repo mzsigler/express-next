@@ -148,34 +148,34 @@ export const lists: Lists = {
       model: text(),
       inv: text(),
       vin: text(),
-      income: relationship({ ref: 'Income.car', many: true }),
-      expense: relationship({ ref: 'Expense.car', many: true }),
+      // income: relationship({ ref: 'Income.car', many: true }),
+      // expense: relationship({ ref: 'Expense.car', many: true }),
     },
     ui: {
       labelField: "inv",
     },
   }),
-  Income: list({
-    fields: {
-      income: float(),
-      customer: text(),
-      closeDate: timestamp(),
-      car: relationship({ ref: 'Car.income' }),
-    },
-    ui: {
-      labelField: "car",
-    }
-  }),
-  Expense: list({
-    fields: {
-      expense: float(),
-      vendor: text(),
-      date: timestamp(),
-      car: relationship({ ref: 'Car.expense' }),
-    },
-    ui: {
-      labelField: "car",
-    }
-  }),
+  // Income: list({
+  //   fields: {
+  //     income: float(),
+  //     customer: text(),
+  //     closeDate: timestamp(),
+  //     car: relationship({ ref: 'Car.income' }),
+  //   },
+  //   ui: {
+  //     labelField: "car",
+  //   }
+  // }),
+  // Expense: list({
+  //   fields: {
+  //     expense: float(),
+  //     vendor: text(),
+  //     date: timestamp(),
+  //     car: relationship({ ref: 'Car.expense' }),
+  //   },
+  //   ui: {
+  //     labelField: "car",
+  //   }
+  // }),
 
 };

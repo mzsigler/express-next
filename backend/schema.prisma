@@ -40,34 +40,10 @@ model Tag {
 }
 
 model Car {
-  id      String    @id @default(cuid())
-  year    Int?
-  make    String    @default("")
-  model   String    @default("")
-  inv     String    @default("")
-  vin     String    @default("")
-  income  Income[]  @relation("Income_car")
-  expense Expense[] @relation("Expense_car")
-}
-
-model Income {
-  id        String    @id @default(cuid())
-  income    Float?
-  customer  String    @default("")
-  closeDate DateTime?
-  car       Car?      @relation("Income_car", fields: [carId], references: [id])
-  carId     String?   @map("car")
-
-  @@index([carId])
-}
-
-model Expense {
-  id      String    @id @default(cuid())
-  expense Float?
-  vendor  String    @default("")
-  date    DateTime?
-  car     Car?      @relation("Expense_car", fields: [carId], references: [id])
-  carId   String?   @map("car")
-
-  @@index([carId])
+  id    String @id @default(cuid())
+  year  Int?
+  make  String @default("")
+  model String @default("")
+  inv   String @default("")
+  vin   String @default("")
 }

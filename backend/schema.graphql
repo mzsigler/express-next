@@ -310,20 +310,6 @@ type Car {
   model: String
   inv: String
   vin: String
-  income(
-    where: IncomeWhereInput! = {}
-    orderBy: [IncomeOrderByInput!]! = []
-    take: Int
-    skip: Int! = 0
-  ): [Income!]
-  incomeCount(where: IncomeWhereInput! = {}): Int
-  expense(
-    where: ExpenseWhereInput! = {}
-    orderBy: [ExpenseOrderByInput!]! = []
-    take: Int
-    skip: Int! = 0
-  ): [Expense!]
-  expenseCount(where: ExpenseWhereInput! = {}): Int
 }
 
 input CarWhereUniqueInput {
@@ -340,8 +326,6 @@ input CarWhereInput {
   model: StringFilter
   inv: StringFilter
   vin: StringFilter
-  income: IncomeManyRelationFilter
-  expense: ExpenseManyRelationFilter
 }
 
 input IntNullableFilter {
@@ -353,18 +337,6 @@ input IntNullableFilter {
   gt: Int
   gte: Int
   not: IntNullableFilter
-}
-
-input IncomeManyRelationFilter {
-  every: IncomeWhereInput
-  some: IncomeWhereInput
-  none: IncomeWhereInput
-}
-
-input ExpenseManyRelationFilter {
-  every: ExpenseWhereInput
-  some: ExpenseWhereInput
-  none: ExpenseWhereInput
 }
 
 input CarOrderByInput {
@@ -382,22 +354,6 @@ input CarUpdateInput {
   model: String
   inv: String
   vin: String
-  income: IncomeRelateToManyForUpdateInput
-  expense: ExpenseRelateToManyForUpdateInput
-}
-
-input IncomeRelateToManyForUpdateInput {
-  disconnect: [IncomeWhereUniqueInput!]
-  set: [IncomeWhereUniqueInput!]
-  create: [IncomeCreateInput!]
-  connect: [IncomeWhereUniqueInput!]
-}
-
-input ExpenseRelateToManyForUpdateInput {
-  disconnect: [ExpenseWhereUniqueInput!]
-  set: [ExpenseWhereUniqueInput!]
-  create: [ExpenseCreateInput!]
-  connect: [ExpenseWhereUniqueInput!]
 }
 
 input CarUpdateArgs {
@@ -411,138 +367,6 @@ input CarCreateInput {
   model: String
   inv: String
   vin: String
-  income: IncomeRelateToManyForCreateInput
-  expense: ExpenseRelateToManyForCreateInput
-}
-
-input IncomeRelateToManyForCreateInput {
-  create: [IncomeCreateInput!]
-  connect: [IncomeWhereUniqueInput!]
-}
-
-input ExpenseRelateToManyForCreateInput {
-  create: [ExpenseCreateInput!]
-  connect: [ExpenseWhereUniqueInput!]
-}
-
-type Income {
-  id: ID!
-  income: Float
-  customer: String
-  closeDate: DateTime
-  car: Car
-}
-
-input IncomeWhereUniqueInput {
-  id: ID
-}
-
-input IncomeWhereInput {
-  AND: [IncomeWhereInput!]
-  OR: [IncomeWhereInput!]
-  NOT: [IncomeWhereInput!]
-  id: IDFilter
-  income: FloatNullableFilter
-  customer: StringFilter
-  closeDate: DateTimeNullableFilter
-  car: CarWhereInput
-}
-
-input FloatNullableFilter {
-  equals: Float
-  in: [Float!]
-  notIn: [Float!]
-  lt: Float
-  lte: Float
-  gt: Float
-  gte: Float
-  not: FloatNullableFilter
-}
-
-input IncomeOrderByInput {
-  id: OrderDirection
-  income: OrderDirection
-  customer: OrderDirection
-  closeDate: OrderDirection
-}
-
-input IncomeUpdateInput {
-  income: Float
-  customer: String
-  closeDate: DateTime
-  car: CarRelateToOneForUpdateInput
-}
-
-input CarRelateToOneForUpdateInput {
-  create: CarCreateInput
-  connect: CarWhereUniqueInput
-  disconnect: Boolean
-}
-
-input IncomeUpdateArgs {
-  where: IncomeWhereUniqueInput!
-  data: IncomeUpdateInput!
-}
-
-input IncomeCreateInput {
-  income: Float
-  customer: String
-  closeDate: DateTime
-  car: CarRelateToOneForCreateInput
-}
-
-input CarRelateToOneForCreateInput {
-  create: CarCreateInput
-  connect: CarWhereUniqueInput
-}
-
-type Expense {
-  id: ID!
-  expense: Float
-  vendor: String
-  date: DateTime
-  car: Car
-}
-
-input ExpenseWhereUniqueInput {
-  id: ID
-}
-
-input ExpenseWhereInput {
-  AND: [ExpenseWhereInput!]
-  OR: [ExpenseWhereInput!]
-  NOT: [ExpenseWhereInput!]
-  id: IDFilter
-  expense: FloatNullableFilter
-  vendor: StringFilter
-  date: DateTimeNullableFilter
-  car: CarWhereInput
-}
-
-input ExpenseOrderByInput {
-  id: OrderDirection
-  expense: OrderDirection
-  vendor: OrderDirection
-  date: OrderDirection
-}
-
-input ExpenseUpdateInput {
-  expense: Float
-  vendor: String
-  date: DateTime
-  car: CarRelateToOneForUpdateInput
-}
-
-input ExpenseUpdateArgs {
-  where: ExpenseWhereUniqueInput!
-  data: ExpenseUpdateInput!
-}
-
-input ExpenseCreateInput {
-  expense: Float
-  vendor: String
-  date: DateTime
-  car: CarRelateToOneForCreateInput
 }
 
 """
@@ -578,21 +402,6 @@ type Mutation {
   updateCars(data: [CarUpdateArgs!]!): [Car]
   deleteCar(where: CarWhereUniqueInput!): Car
   deleteCars(where: [CarWhereUniqueInput!]!): [Car]
-  createIncome(data: IncomeCreateInput!): Income
-  createIncomes(data: [IncomeCreateInput!]!): [Income]
-  updateIncome(where: IncomeWhereUniqueInput!, data: IncomeUpdateInput!): Income
-  updateIncomes(data: [IncomeUpdateArgs!]!): [Income]
-  deleteIncome(where: IncomeWhereUniqueInput!): Income
-  deleteIncomes(where: [IncomeWhereUniqueInput!]!): [Income]
-  createExpense(data: ExpenseCreateInput!): Expense
-  createExpenses(data: [ExpenseCreateInput!]!): [Expense]
-  updateExpense(
-    where: ExpenseWhereUniqueInput!
-    data: ExpenseUpdateInput!
-  ): Expense
-  updateExpenses(data: [ExpenseUpdateArgs!]!): [Expense]
-  deleteExpense(where: ExpenseWhereUniqueInput!): Expense
-  deleteExpenses(where: [ExpenseWhereUniqueInput!]!): [Expense]
   endSession: Boolean!
   authenticateUserWithPassword(
     email: String!
@@ -655,22 +464,6 @@ type Query {
   ): [Car!]
   car(where: CarWhereUniqueInput!): Car
   carsCount(where: CarWhereInput! = {}): Int
-  incomes(
-    where: IncomeWhereInput! = {}
-    orderBy: [IncomeOrderByInput!]! = []
-    take: Int
-    skip: Int! = 0
-  ): [Income!]
-  income(where: IncomeWhereUniqueInput!): Income
-  incomesCount(where: IncomeWhereInput! = {}): Int
-  expenses(
-    where: ExpenseWhereInput! = {}
-    orderBy: [ExpenseOrderByInput!]! = []
-    take: Int
-    skip: Int! = 0
-  ): [Expense!]
-  expense(where: ExpenseWhereUniqueInput!): Expense
-  expensesCount(where: ExpenseWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }
