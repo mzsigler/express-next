@@ -182,9 +182,18 @@ export const lists: Lists = {
   Balance: list({
     fields: {
       name: text(),
+      balanceAmount: float(),
       returnDate: timestamp(),
-      amount: float(),
-      social: integer(),
+      driverLicenseState: text(),
+      driverLicenseNumber: text(),
+      SSN: text(),
+      phone: text(),
+      employer: text(),
+      employerPhone: text(),
+      dateOfBirth: timestamp(),
+      notes: text(),
+      localContactName: text(),
+      localContactPhone: text(),
     }
   }),
 

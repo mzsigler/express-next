@@ -78,9 +78,18 @@ model Expense {
 }
 
 model Balance {
-  id         String    @id @default(cuid())
-  name       String    @default("")
-  returnDate DateTime?
-  amount     Float?
-  social     Int?
+  id                  String    @id @default(cuid())
+  name                String    @default("")
+  balanceAmount       Float?
+  returnDate          DateTime?
+  driverLicenseState  String    @default("")
+  driverLicenseNumber String    @default("")
+  SSN                 String    @default("")
+  phone               String    @default("")
+  employer            String    @default("")
+  employerPhone       String    @default("")
+  dateOfBirth         DateTime?
+  notes               String    @default("")
+  localContactName    String    @default("")
+  localContactPhone   String    @default("")
 }

@@ -573,9 +573,18 @@ input ExpenseCreateInput {
 type Balance {
   id: ID!
   name: String
+  balanceAmount: Float
   returnDate: DateTime
-  amount: Float
-  social: Int
+  driverLicenseState: String
+  driverLicenseNumber: String
+  SSN: String
+  phone: String
+  employer: String
+  employerPhone: String
+  dateOfBirth: DateTime
+  notes: String
+  localContactName: String
+  localContactPhone: String
 }
 
 input BalanceWhereUniqueInput {
@@ -588,24 +597,51 @@ input BalanceWhereInput {
   NOT: [BalanceWhereInput!]
   id: IDFilter
   name: StringFilter
+  balanceAmount: FloatNullableFilter
   returnDate: DateTimeNullableFilter
-  amount: FloatNullableFilter
-  social: IntNullableFilter
+  driverLicenseState: StringFilter
+  driverLicenseNumber: StringFilter
+  SSN: StringFilter
+  phone: StringFilter
+  employer: StringFilter
+  employerPhone: StringFilter
+  dateOfBirth: DateTimeNullableFilter
+  notes: StringFilter
+  localContactName: StringFilter
+  localContactPhone: StringFilter
 }
 
 input BalanceOrderByInput {
   id: OrderDirection
   name: OrderDirection
+  balanceAmount: OrderDirection
   returnDate: OrderDirection
-  amount: OrderDirection
-  social: OrderDirection
+  driverLicenseState: OrderDirection
+  driverLicenseNumber: OrderDirection
+  SSN: OrderDirection
+  phone: OrderDirection
+  employer: OrderDirection
+  employerPhone: OrderDirection
+  dateOfBirth: OrderDirection
+  notes: OrderDirection
+  localContactName: OrderDirection
+  localContactPhone: OrderDirection
 }
 
 input BalanceUpdateInput {
   name: String
+  balanceAmount: Float
   returnDate: DateTime
-  amount: Float
-  social: Int
+  driverLicenseState: String
+  driverLicenseNumber: String
+  SSN: String
+  phone: String
+  employer: String
+  employerPhone: String
+  dateOfBirth: DateTime
+  notes: String
+  localContactName: String
+  localContactPhone: String
 }
 
 input BalanceUpdateArgs {
@@ -615,9 +651,18 @@ input BalanceUpdateArgs {
 
 input BalanceCreateInput {
   name: String
+  balanceAmount: Float
   returnDate: DateTime
-  amount: Float
-  social: Int
+  driverLicenseState: String
+  driverLicenseNumber: String
+  SSN: String
+  phone: String
+  employer: String
+  employerPhone: String
+  dateOfBirth: DateTime
+  notes: String
+  localContactName: String
+  localContactPhone: String
 }
 
 """
