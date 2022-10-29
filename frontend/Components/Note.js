@@ -9,7 +9,7 @@ export default function Note({ note }){
             <h2>{note.title}</h2>
             <h4> By: {note.author.name}</h4>
             <h4> Posted on: {note.publishDate}</h4>
-            <Link classname="viewNote" href='/singleNote/?'>View</Link>
+            <Link classname="viewNote" href={`/singleNote/${note.id}`}>View</Link>
         </div>
     )
 }

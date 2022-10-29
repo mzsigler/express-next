@@ -2,6 +2,8 @@ import { gql, useQuery } from "@apollo/client"
 import Note from "./Note";
 import styled from "styled-components";
 
+//TODO pagination so it doesn't get out of control when there are many notes
+
 const NotesDivStyles = styled.div`
 display: grid;
 grid-template-columns: 1fr 1fr;
@@ -33,7 +35,6 @@ export default function Notes(){
 
     return (
         <NotesDivStyles>
-        {console.log(notes)}
         {notes.map((note) => {
              return(
                     <Note key={note.id} note={note}/>

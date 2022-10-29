@@ -100,9 +100,9 @@ export default function TaxCalculator(){
             </form>
 
             <div className="taxCalcResults">
-                <p>TN State Tax: ${results.tnTax} </p>
-                <p>Local Tax: ${results.localTax} </p>
-                <p>Single Article Tax: ${results.singleArticle} </p>
+                <p>TN State Tax: ${(results.tnTax).toFixed(2)} </p>
+                <p>Local Tax: ${(results.localTax).toFixed(2)} </p>
+                <p>Single Article Tax: ${(results.singleArticle).toFixed(2)} </p>
                 <p>Total Tax: ${(results.singleArticle + results.localTax + results.tnTax).toFixed(2)} </p>
                 <p>Total Price: ${(results.purchasePrice + results.singleArticle + results.localTax + results.tnTax).toFixed(2)}</p>
             </div>

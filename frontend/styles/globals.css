@@ -24,13 +24,14 @@ a {
 .header>ul {
   list-style: none;
   display: flex;
-  gap: 10px;
+  gap: 20px;
 }
 
 .latest,
 .taxCalculator,
 .balDue,
-.notes {
+.notes,
+.displayNote {
   padding: 1.5rem;
 }
 
