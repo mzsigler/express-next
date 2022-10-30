@@ -430,10 +430,13 @@ type Income {
   amount: Float
   customer: String
   notes: String
-  closeDate: DateTime
+  closeDate: CalendarDay
   mileage: Int
   car: Car
 }
+
+scalar CalendarDay
+  @specifiedBy(url: "https://datatracker.ietf.org/doc/html/rfc3339#section-5.6")
 
 input IncomeWhereUniqueInput {
   id: ID
@@ -447,7 +450,7 @@ input IncomeWhereInput {
   amount: FloatNullableFilter
   customer: StringFilter
   notes: StringFilter
-  closeDate: DateTimeNullableFilter
+  closeDate: CalendarDayNullableFilter
   mileage: IntNullableFilter
   car: CarWhereInput
 }
@@ -463,6 +466,17 @@ input FloatNullableFilter {
   not: FloatNullableFilter
 }
 
+input CalendarDayNullableFilter {
+  equals: CalendarDay
+  in: [CalendarDay!]
+  notIn: [CalendarDay!]
+  lt: CalendarDay
+  lte: CalendarDay
+  gt: CalendarDay
+  gte: CalendarDay
+  not: CalendarDayNullableFilter
+}
+
 input IncomeOrderByInput {
   id: OrderDirection
   amount: OrderDirection
@@ -476,7 +490,7 @@ input IncomeUpdateInput {
   amount: Float
   customer: String
   notes: String
-  closeDate: DateTime
+  closeDate: CalendarDay
   mileage: Int
   car: CarRelateToOneForUpdateInput
 }
@@ -496,7 +510,7 @@ input IncomeCreateInput {
   amount: Float
   customer: String
   notes: String
-  closeDate: DateTime
+  closeDate: CalendarDay
   mileage: Int
   car: CarRelateToOneForCreateInput
 }
@@ -511,7 +525,7 @@ type Expense {
   amount: Float
   vendor: String
   description: String
-  date: DateTime
+  date: CalendarDay
   mileage: Int
   receiptNumber: String
   car: Car
@@ -529,7 +543,7 @@ input ExpenseWhereInput {
   amount: FloatNullableFilter
   vendor: StringFilter
   description: StringFilter
-  date: DateTimeNullableFilter
+  date: CalendarDayNullableFilter
   mileage: IntNullableFilter
   receiptNumber: StringFilter
   car: CarWhereInput
@@ -549,7 +563,7 @@ input ExpenseUpdateInput {
   amount: Float
   vendor: String
   description: String
-  date: DateTime
+  date: CalendarDay
   mileage: Int
   receiptNumber: String
   car: CarRelateToOneForUpdateInput
@@ -564,7 +578,7 @@ input ExpenseCreateInput {
   amount: Float
   vendor: String
   description: String
-  date: DateTime
+  date: CalendarDay
   mileage: Int
   receiptNumber: String
   car: CarRelateToOneForCreateInput
@@ -574,14 +588,14 @@ type Balance {
   id: ID!
   name: String
   balanceAmount: Float
-  returnDate: DateTime
+  returnDate: CalendarDay
   driverLicenseState: String
   driverLicenseNumber: String
   SSN: String
   phone: String
   employer: String
   employerPhone: String
-  dateOfBirth: DateTime
+  dateOfBirth: String
   notes: String
   localContactName: String
   localContactPhone: String
@@ -598,14 +612,14 @@ input BalanceWhereInput {
   id: IDFilter
   name: StringFilter
   balanceAmount: FloatNullableFilter
-  returnDate: DateTimeNullableFilter
+  returnDate: CalendarDayNullableFilter
   driverLicenseState: StringFilter
   driverLicenseNumber: StringFilter
   SSN: StringFilter
   phone: StringFilter
   employer: StringFilter
   employerPhone: StringFilter
-  dateOfBirth: DateTimeNullableFilter
+  dateOfBirth: StringFilter
   notes: StringFilter
   localContactName: StringFilter
   localContactPhone: StringFilter
@@ -631,14 +645,14 @@ input BalanceOrderByInput {
 input BalanceUpdateInput {
   name: String
   balanceAmount: Float
-  returnDate: DateTime
+  returnDate: CalendarDay
   driverLicenseState: String
   driverLicenseNumber: String
   SSN: String
   phone: String
   employer: String
   employerPhone: String
-  dateOfBirth: DateTime
+  dateOfBirth: String
   notes: String
   localContactName: String
   localContactPhone: String
@@ -652,17 +666,52 @@ input BalanceUpdateArgs {
 input BalanceCreateInput {
   name: String
   balanceAmount: Float
-  returnDate: DateTime
+  returnDate: CalendarDay
   driverLicenseState: String
   driverLicenseNumber: String
   SSN: String
   phone: String
   employer: String
   employerPhone: String
-  dateOfBirth: DateTime
+  dateOfBirth: String
   notes: String
   localContactName: String
   localContactPhone: String
+}
+
+type BalancePayment {
+  id: ID!
+  paymentAmount: Float
+}
+
+input BalancePaymentWhereUniqueInput {
+  id: ID
+}
+
+input BalancePaymentWhereInput {
+  AND: [BalancePaymentWhereInput!]
+  OR: [BalancePaymentWhereInput!]
+  NOT: [BalancePaymentWhereInput!]
+  id: IDFilter
+  paymentAmount: FloatNullableFilter
+}
+
+input BalancePaymentOrderByInput {
+  id: OrderDirection
+  paymentAmount: OrderDirection
+}
+
+input BalancePaymentUpdateInput {
+  paymentAmount: Float
+}
+
+input BalancePaymentUpdateArgs {
+  where: BalancePaymentWhereUniqueInput!
+  data: BalancePaymentUpdateInput!
+}
+
+input BalancePaymentCreateInput {
+  paymentAmount: Float
 }
 
 """
@@ -722,6 +771,17 @@ type Mutation {
   updateBalances(data: [BalanceUpdateArgs!]!): [Balance]
   deleteBalance(where: BalanceWhereUniqueInput!): Balance
   deleteBalances(where: [BalanceWhereUniqueInput!]!): [Balance]
+  createBalancePayment(data: BalancePaymentCreateInput!): BalancePayment
+  createBalancePayments(data: [BalancePaymentCreateInput!]!): [BalancePayment]
+  updateBalancePayment(
+    where: BalancePaymentWhereUniqueInput!
+    data: BalancePaymentUpdateInput!
+  ): BalancePayment
+  updateBalancePayments(data: [BalancePaymentUpdateArgs!]!): [BalancePayment]
+  deleteBalancePayment(where: BalancePaymentWhereUniqueInput!): BalancePayment
+  deleteBalancePayments(
+    where: [BalancePaymentWhereUniqueInput!]!
+  ): [BalancePayment]
   endSession: Boolean!
   authenticateUserWithPassword(
     email: String!
@@ -808,6 +868,14 @@ type Query {
   ): [Balance!]
   balance(where: BalanceWhereUniqueInput!): Balance
   balancesCount(where: BalanceWhereInput! = {}): Int
+  balancePayments(
+    where: BalancePaymentWhereInput! = {}
+    orderBy: [BalancePaymentOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [BalancePayment!]
+  balancePayment(where: BalancePaymentWhereUniqueInput!): BalancePayment
+  balancePaymentsCount(where: BalancePaymentWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }

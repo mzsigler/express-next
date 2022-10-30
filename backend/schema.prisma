@@ -51,45 +51,50 @@ model Car {
 }
 
 model Income {
-  id        String    @id @default(cuid())
+  id        String  @id @default(cuid())
   amount    Float?
-  customer  String    @default("")
-  notes     String    @default("")
-  closeDate DateTime?
+  customer  String  @default("")
+  notes     String  @default("")
+  closeDate String?
   mileage   Int?
-  car       Car?      @relation("Income_car", fields: [carId], references: [id])
-  carId     String?   @map("car")
+  car       Car?    @relation("Income_car", fields: [carId], references: [id])
+  carId     String? @map("car")
 
   @@index([carId])
 }
 
 model Expense {
-  id            String    @id @default(cuid())
+  id            String  @id @default(cuid())
   amount        Float?
-  vendor        String    @default("")
-  description   String    @default("")
-  date          DateTime?
+  vendor        String  @default("")
+  description   String  @default("")
+  date          String?
   mileage       Int?
-  receiptNumber String    @default("")
-  car           Car?      @relation("Expense_car", fields: [carId], references: [id])
-  carId         String?   @map("car")
+  receiptNumber String  @default("")
+  car           Car?    @relation("Expense_car", fields: [carId], references: [id])
+  carId         String? @map("car")
 
   @@index([carId])
 }
 
 model Balance {
-  id                  String    @id @default(cuid())
-  name                String    @default("")
+  id                  String  @id @default(cuid())
+  name                String  @default("")
   balanceAmount       Float?
-  returnDate          DateTime?
-  driverLicenseState  String    @default("")
-  driverLicenseNumber String    @default("")
-  SSN                 String    @default("")
-  phone               String    @default("")
-  employer            String    @default("")
-  employerPhone       String    @default("")
-  dateOfBirth         DateTime?
-  notes               String    @default("")
-  localContactName    String    @default("")
-  localContactPhone   String    @default("")
+  returnDate          String?
+  driverLicenseState  String  @default("")
+  driverLicenseNumber String  @default("")
+  SSN                 String  @default("")
+  phone               String  @default("")
+  employer            String  @default("")
+  employerPhone       String  @default("")
+  dateOfBirth         String  @default("")
+  notes               String  @default("")
+  localContactName    String  @default("")
+  localContactPhone   String  @default("")
+}
+
+model BalancePayment {
+  id            String @id @default(cuid())
+  paymentAmount Float?
 }

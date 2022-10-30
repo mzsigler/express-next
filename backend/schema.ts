@@ -24,6 +24,7 @@ import {
   relationship,
   password,
   timestamp,
+  calendarDay,
   select,
   float,
   integer,
@@ -163,7 +164,7 @@ export const lists: Lists = {
       amount: float(),
       customer: text(),
       notes: text(),
-      closeDate: timestamp(),
+      closeDate: calendarDay(),
       mileage: integer(),
       car: relationship({ ref: "Car.income" }),
     },
@@ -173,7 +174,7 @@ export const lists: Lists = {
       amount: float(),
       vendor: text(),
       description: text(),
-      date: timestamp(),
+      date: calendarDay(),
       mileage: integer(),
       receiptNumber: text(),
       car: relationship({ ref: "Car.expense" }),
@@ -183,18 +184,24 @@ export const lists: Lists = {
     fields: {
       name: text(),
       balanceAmount: float(),
-      returnDate: timestamp(),
+      returnDate: calendarDay(),
       driverLicenseState: text(),
       driverLicenseNumber: text(),
       SSN: text(),
       phone: text(),
       employer: text(),
       employerPhone: text(),
-      dateOfBirth: timestamp(),
+      dateOfBirth: text(),
       notes: text(),
       localContactName: text(),
       localContactPhone: text(),
     }
   }),
+
+  BalancePayment: list({
+    fields: {
+      paymentAmount: float(),
+    }
+  })
 
 };
