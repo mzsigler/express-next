@@ -21,6 +21,11 @@ export default function Header(){
                     </Link>
                 </li>
                 <li>
+                    <Link href="/cars">
+                        <a>Cars</a>
+                    </Link>
+                </li>
+                <li>
                     <Link href="/notes">
                         <a>Notes</a>
                     </Link>

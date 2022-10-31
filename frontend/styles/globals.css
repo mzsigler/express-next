@@ -31,7 +31,8 @@ a {
 .taxCalculator,
 .balDue,
 .notes,
-.displayNote {
+.displayNote,
+.cars {
   padding: 1.5rem;
 }
 
