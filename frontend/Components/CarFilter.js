@@ -1,5 +1,4 @@
-import { useQuery } from "@apollo/client";
-import gql from "@apollo/client";
+import { useQuery, gql } from "@apollo/client";
 import styled from "styled-components";
 
 const StyledCarFilterForm = styled.form`
@@ -14,11 +13,26 @@ export default function CarFilter(){
     let searchField;
     let searchTerm;
 
+    const TEST_QUERY = gql`
+    query{
+        cars {
+            year,
+            make,
+            model,
+        }
+    }`
+
+    const { data, loading, error } = useQuery(TEST_QUERY);
+
+
     function getFormData(e){
         e.preventDefault();
         searchField = (e.target.form[1].value).toLowerCase();
         searchTerm = (e.target.form[0].value).toLowerCase();
-        console.log(searchField, searchTerm);
+
+
+        console.log(data);
+
     }
 
     return (
@@ -34,6 +48,7 @@ export default function CarFilter(){
                 <button onClick={getFormData}>Go</button>
             </StyledCarFilterForm>
 
+        {cars && <p>Hello there are cars</p>}
 
         </div>
     )
