@@ -1,5 +1,7 @@
 import { useQuery, gql } from "@apollo/client";
 import styled from "styled-components";
+import { useState } from "react";
+import CarCard from "./CarCard";
 
 const StyledCarFilterForm = styled.form`
     display: flex;
@@ -10,28 +12,34 @@ const StyledCarFilterForm = styled.form`
 export default function CarFilter(){
 
     let cars;
-    let searchField;
-    let searchTerm;
+    const [searchField, setSearchField] = useState();
+    const [searchTerm, setsearchTerm] = useState();
 
     const TEST_QUERY = gql`
     query{
         cars {
-            year,
-            make,
+            year, 
+            make, 
             model,
+            vin
         }
     }`
 
     const { data, loading, error } = useQuery(TEST_QUERY);
 
+    if(data){
+
+        cars = (Object.values(data))
+            
+    }
+    
 
     function getFormData(e){
         e.preventDefault();
-        searchField = (e.target.form[1].value).toLowerCase();
-        searchTerm = (e.target.form[0].value).toLowerCase();
-
-
-        console.log(data);
+        let formField = (e.target.form[1].value).toLowerCase();
+        let formTerm = (e.target.form[0].value).toLowerCase();
+        setSearchField(formField);
+        setsearchTerm(formTerm);
 
     }
 
@@ -48,7 +56,9 @@ export default function CarFilter(){
                 <button onClick={getFormData}>Go</button>
             </StyledCarFilterForm>
 
-        {cars && <p>Hello there are cars</p>}
+        {cars && cars.map(car => {
+            <CarCard car={car} />
+        })}
 
         </div>
     )
