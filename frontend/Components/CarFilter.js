@@ -1,4 +1,4 @@
-import { useQuery, gql } from "@apollo/client";
+import { useQuery, gql, useLazyQuery } from "@apollo/client";
 import styled from "styled-components";
 import { useState } from "react";
 import CarCard from "./CarCard";
@@ -25,13 +25,12 @@ export default function CarFilter(){
         }
     }`
 
-    const { data, loading, error } = useQuery(TEST_QUERY);
+    const [
+        getCars, 
+        {loading, data}
+    ] = useLazyQuery(TEST_QUERY)
+    
 
-    if(data){
-
-        cars = (Object.values(data))
-            
-    }
     
 
     function getFormData(e){
@@ -53,12 +52,10 @@ export default function CarFilter(){
                     <option value="make">Make</option>
                     <option value="model">Model</option>
                 </select>
-                <button onClick={getFormData}>Go</button>
+                <button onClick={() => getCars()}>Go</button>
+                {data && data.cars.map(car => console.log(car))}
             </StyledCarFilterForm>
 
-        {cars && cars.map(car => {
-            <CarCard car={car} />
-        })}
 
         </div>
     )
