@@ -36,8 +36,7 @@ export default function CarFilter(){
         let formTerm = (e.target.form[0].value).toLowerCase();
         setSearchField(formField);
         setsearchTerm(formTerm);
-        setCars([data.cars])
-
+        setCars([data.cars]);
     }
 
     return (
@@ -55,15 +54,14 @@ export default function CarFilter(){
             </StyledCarFilterForm>
 
             <div className="results">
-            {data && data.cars.map(car => {
+            {cars[0] && data.cars.map(car => {
                 return (
                     <p key={car.inv}> {car.inv} {car.make} {car.model}
                     <button>Click me</button></p>
                 )
             })}
             </div>
-
-            {console.log(cars)}
+            {console.log(searchField, searchTerm)}
 
         </div>
     )
