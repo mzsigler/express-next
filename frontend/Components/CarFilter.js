@@ -26,8 +26,7 @@ export default function CarFilter(){
         }
     }`
 
-    const { data, loading, error } = useQuery(TEST_QUERY);
-    
+    const { data, loading, error } = useQuery(TEST_QUERY);    
 
     
 
@@ -37,6 +36,7 @@ export default function CarFilter(){
         let formTerm = (e.target.form[0].value).toLowerCase();
         setSearchField(formField);
         setsearchTerm(formTerm);
+        setCars([data.cars])
 
     }
 
@@ -50,17 +50,20 @@ export default function CarFilter(){
                     <option value="make">Make</option>
                     <option value="model">Model</option>
                 </select>
-                <button onClick={() => getCars()}>Go</button>
+                <button onClick={getFormData}>Go</button>
                 
             </StyledCarFilterForm>
 
-            {cars && data.cars.map(car => {
+            <div className="results">
+            {data && data.cars.map(car => {
                 return (
                     <p key={car.inv}> {car.inv} {car.make} {car.model}
                     <button>Click me</button></p>
                 )
             })}
+            </div>
 
+            {console.log(cars)}
 
         </div>
     )
