@@ -11,7 +11,7 @@ const StyledCarFilterForm = styled.form`
 
 export default function CarFilter(){
 
-    let cars;
+    const [cars, setCars] = useState([])
     const [searchField, setSearchField] = useState();
     const [searchTerm, setsearchTerm] = useState();
 
@@ -21,14 +21,12 @@ export default function CarFilter(){
             year, 
             make, 
             model,
-            vin
+            vin,
+            inv
         }
     }`
 
-    const [
-        getCars, 
-        {loading, data}
-    ] = useLazyQuery(TEST_QUERY)
+    const { data, loading, error } = useQuery(TEST_QUERY);
     
 
     
@@ -53,8 +51,15 @@ export default function CarFilter(){
                     <option value="model">Model</option>
                 </select>
                 <button onClick={() => getCars()}>Go</button>
-                {data && data.cars.map(car => console.log(car))}
+                
             </StyledCarFilterForm>
+
+            {cars && data.cars.map(car => {
+                return (
+                    <p key={car.inv}> {car.inv} {car.make} {car.model}
+                    <button>Click me</button></p>
+                )
+            })}
 
 
         </div>
