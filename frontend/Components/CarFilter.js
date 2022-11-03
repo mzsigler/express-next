@@ -11,9 +11,22 @@ const StyledCarFilterForm = styled.form`
 
 export default function CarFilter(){
 
-    const [cars, setCars] = useState([])
     const [searchField, setSearchField] = useState();
     const [searchTerm, setsearchTerm] = useState();
+
+    const CAR_QUERY = gql`
+    query(
+        $inv: String,
+    ){
+        cars(where: {inv: {equals: "A04"}} ){
+            year,
+            make,
+            model,
+            year,
+            vin,
+            inv,
+        }
+    }`
 
     const TEST_QUERY = gql`
     query{
@@ -26,7 +39,9 @@ export default function CarFilter(){
         }
     }`
 
-    const { data, loading, error } = useQuery(TEST_QUERY);    
+    // const { data, loading, error } = useQuery(TEST_QUERY);    
+    const[getCars, {loading, error, data }] = useLazyQuery(TEST_QUERY);
+
 
     
 
@@ -36,7 +51,8 @@ export default function CarFilter(){
         let formTerm = (e.target.form[0].value).toLowerCase();
         setSearchField(formField);
         setsearchTerm(formTerm);
-        setCars([data.cars]);
+        getCars();
+
     }
 
     return (
@@ -54,14 +70,12 @@ export default function CarFilter(){
             </StyledCarFilterForm>
 
             <div className="results">
-            {cars[0] && data.cars.map(car => {
-                return (
-                    <p key={car.inv}> {car.inv} {car.make} {car.model}
-                    <button>Click me</button></p>
-                )
+            {data && data.cars.map(car => {
+                return <p key={car.id}>{car.make} {car.model} {car.inv}</p>
             })}
+
+            {console.log(data, loading)}
             </div>
-            {console.log(searchField, searchTerm)}
 
         </div>
     )
