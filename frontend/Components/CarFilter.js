@@ -1,6 +1,5 @@
 import { useQuery, gql, useLazyQuery } from "@apollo/client";
 import styled from "styled-components";
-import { useState } from "react";
 import CarCard from "./CarCard";
 
 const StyledCarFilterForm = styled.form`
@@ -11,20 +10,19 @@ const StyledCarFilterForm = styled.form`
 
 export default function CarFilter(){
 
-    const [searchField, setSearchField] = useState();
-    const [searchTerm, setsearchTerm] = useState();
 
     const CAR_QUERY = gql`
     query(
         $inv: String,
     ){
-        cars(where: {inv: {equals: "A04"}} ){
+        cars(where: {inv: {equals: $inv}} ){
             year,
             make,
             model,
             year,
             vin,
             inv,
+            id
         }
     }`
 
@@ -35,46 +33,39 @@ export default function CarFilter(){
             make, 
             model,
             vin,
-            inv
+            inv, 
+            id,
         }
     }`
 
     // const { data, loading, error } = useQuery(TEST_QUERY);    
-    const[getCars, {loading, error, data }] = useLazyQuery(TEST_QUERY);
+    const[getCars, {loading, error, data }] = useLazyQuery(CAR_QUERY);
 
 
     
 
     function getFormData(e){
         e.preventDefault();
-        let formField = (e.target.form[1].value).toLowerCase();
-        let formTerm = (e.target.form[0].value).toLowerCase();
-        setSearchField(formField);
-        setsearchTerm(formTerm);
-        getCars();
+        let inv = (e.target.form[0].value).toLowerCase();
+        getCars({ variables: {inv}});
+        console.log(data, loading)
 
     }
 
     return (
         <div className="carFilter">
             <StyledCarFilterForm>
-                <label>Filter</label>
+                <label>Inventory Number</label>
                 <input type="text" name="searchText" id="searchText" />
-                <select name="searchBy" id="searchBy">
-                    <option value="inv">Inventory Number</option>
-                    <option value="make">Make</option>
-                    <option value="model">Model</option>
-                </select>
                 <button onClick={getFormData}>Go</button>
                 
             </StyledCarFilterForm>
 
             <div className="results">
             {data && data.cars.map(car => {
-                return <p key={car.id}>{car.make} {car.model} {car.inv}</p>
+                return <p key={car.id}> {car.make} {car.model} {car.inv} <button>Click Me</button></p>
             })}
 
-            {console.log(data, loading)}
             </div>
 
         </div>
