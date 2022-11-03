@@ -32,7 +32,8 @@ a {
 .balDue,
 .notes,
 .displayNote,
-.cars {
+.cars,
+.carCard {
   padding: 1.5rem;
 }
 

@@ -7,6 +7,14 @@ const StyledCarFilterForm = styled.form`
     justify-content: center;
     gap: 1rem;
 `
+const StyledResults = styled.div`
+display: grid;
+grid-template-columns: 1fr;
+min-width: 90vw;
+justify-items: center;
+`
+
+
 
 export default function CarFilter(){
 
@@ -26,17 +34,6 @@ export default function CarFilter(){
         }
     }`
 
-    const TEST_QUERY = gql`
-    query{
-        cars {
-            year, 
-            make, 
-            model,
-            vin,
-            inv, 
-            id,
-        }
-    }`
 
     // const { data, loading, error } = useQuery(TEST_QUERY);    
     const[getCars, {loading, error, data }] = useLazyQuery(CAR_QUERY);
@@ -46,7 +43,7 @@ export default function CarFilter(){
 
     function getFormData(e){
         e.preventDefault();
-        let inv = (e.target.form[0].value).toLowerCase();
+        let inv = (e.target.form[0].value).toUpperCase();
         getCars({ variables: {inv}});
         console.log(data, loading)
 
@@ -61,12 +58,15 @@ export default function CarFilter(){
                 
             </StyledCarFilterForm>
 
-            <div className="results">
+            <StyledResults>
             {data && data.cars.map(car => {
-                return <p key={car.id}> {car.make} {car.model} {car.inv} <button>Click Me</button></p>
+                return (
+                    <CarCard key={car.id} car={car}/>
+                    
+                )
             })}
 
-            </div>
+            </StyledResults>
 
         </div>
     )
