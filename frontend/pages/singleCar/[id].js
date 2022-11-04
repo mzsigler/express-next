@@ -26,6 +26,7 @@ const SINGLE_CAR_QUERY = gql`
 export default function SingleCar(){
 
     let expenseTotal;
+    let incomeTotal; 
 
     const router = useRouter();
     const { id } = router.query;
@@ -39,9 +40,11 @@ export default function SingleCar(){
     if(data){
         const expenses = data.car.expense;
         const amounts = expenses.map(expense => expense.amount);
-        console.log(amounts);
         expenseTotal = amounts.reduce((start, i) => start + i, 0);
-        console.log(expenseTotal);
+
+        const income = data.car.income;
+        const incomeAmounts = income.map(income => income.amount);
+        incomeTotal = incomeAmounts.reduce((start, i) => start + i, 0);
 
     }
 
@@ -56,6 +59,8 @@ export default function SingleCar(){
             <p>{data.car.model}</p>
             <p>{data.car.vin}</p>
             <p>Total Expenses: {expenseTotal}</p>
+            <p>Total Income: {incomeTotal} <button>View</button></p>
+            <p>Net: {incomeTotal - expenseTotal} <button>View</button></p>
         </div>
         }
 
