@@ -33,7 +33,8 @@ a {
 .notes,
 .displayNote,
 .cars,
-.carCard {
+.carCard,
+.singleCar {
   padding: 1.5rem;
 }
 
@@ -53,6 +54,11 @@ a {
   grid-template-columns: 1fr;
   justify-items: center;
   padding: 1.5rem;
+}
+
+.viewCar {
+  padding: 1rem;
+  border: 1px solid white;
 }
 
 @media (prefers-color-scheme: dark) {

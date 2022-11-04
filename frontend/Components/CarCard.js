@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Link from "next/link";
 
 const StyledCarCard = styled.div`
     padding: 1rem;
@@ -20,7 +21,7 @@ export default function CarCard({car}){
                     <span>{car.year}</span>
                     <span>{car.make}</span>
                     <span>{car.model}</span>
-                    <button>View More</button>
+                    <Link classname="viewCar" href={`/singleCar/${car.id}`}>View</Link>
                 </StyledCarCard>
 
         </div>
