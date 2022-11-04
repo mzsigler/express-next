@@ -39,6 +39,7 @@ a {
 
 .note {
   padding: 1rem;
+  border: 1px solid yellow;
 }
 
 .taxCalcForm {

@@ -19,7 +19,7 @@ justify-items: center;
 export default function CarFilter(){
 
 
-    const CAR_QUERY = gql`
+    const INV_QUERY = gql`
     query(
         $inv: String,
     ){
@@ -34,29 +34,56 @@ export default function CarFilter(){
         }
     }`
 
+    const VIN_QUERY = gql`
+    query(
+        $vin: String,
+    ){
+        cars(where: {vin: {contains: $vin}}){
+            year,
+            make,
+            model,
+            year,
+            vin,
+            inv,
+            id
+        }
+    }`
 
-    // const { data, loading, error } = useQuery(TEST_QUERY);    
-    const[getCars, {loading, error, data }] = useLazyQuery(CAR_QUERY);
 
+    const[invSearch, {loading, error, data }] = useLazyQuery(INV_QUERY);
+    const[vinSearch, {data: vinData}] = useLazyQuery(VIN_QUERY);
 
-    
 
     function getFormData(e){
         e.preventDefault();
         let inv = (e.target.form[0].value).toUpperCase();
-        getCars({ variables: {inv}});
-        console.log(data, loading)
+        let searchBy = (e.target.form[1].value);
+
+        if(searchBy === 'inv'){
+            invSearch({ variables: {inv}})
+        }
+
+        if(searchBy === 'vin'){
+            let vin = (e.target.form[0].value);
+            vinSearch({ variables: {vin}})
+        }
+    
 
     }
 
     return (
         <div className="carFilter">
             <StyledCarFilterForm>
-                <label>Inventory Number</label>
                 <input type="text" name="searchText" id="searchText" />
+                <select name="searchType" id="searchType">
+                    <option value="inv">Inventory Number</option>
+                    <option value="vin">VIN</option>
+                </select>
                 <button onClick={getFormData}>Go</button>
                 
             </StyledCarFilterForm>
+
+            <div className="results">
 
             <StyledResults>
             {data && data.cars.map(car => {
@@ -66,7 +93,17 @@ export default function CarFilter(){
                 )
             })}
 
+            {vinData && vinData.cars.map(car => {
+                return (
+                    <CarCard key={car.id} car={car}/>
+                    
+                )
+            })}
+
+            
+
             </StyledResults>
+            </div>
 
         </div>
     )
