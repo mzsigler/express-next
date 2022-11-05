@@ -40,14 +40,15 @@ model Tag {
 }
 
 model Car {
-  id      String    @id @default(cuid())
-  year    Int?
-  make    String    @default("")
-  model   String    @default("")
-  inv     String    @default("")
-  vin     String    @default("")
-  income  Income[]  @relation("Income_car")
-  expense Expense[] @relation("Expense_car")
+  id        String    @id @default(cuid())
+  dateAdded String?
+  year      Int?
+  make      String    @default("")
+  model     String    @default("")
+  inv       String    @default("")
+  vin       String    @default("")
+  income    Income[]  @relation("Income_car")
+  expense   Expense[] @relation("Expense_car")
 }
 
 model Income {

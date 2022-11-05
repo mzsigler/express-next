@@ -144,6 +144,7 @@ export const lists: Lists = {
   }),
   Car: list({
     fields: {
+      dateAdded: calendarDay(),
       year: integer(),
       make: text(),
       model: text(),

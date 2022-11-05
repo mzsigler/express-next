@@ -305,6 +305,7 @@ input TagCreateInput {
 
 type Car {
   id: ID!
+  dateAdded: CalendarDay
   year: Int
   make: String
   model: String
@@ -326,6 +327,9 @@ type Car {
   expenseCount(where: ExpenseWhereInput! = {}): Int
 }
 
+scalar CalendarDay
+  @specifiedBy(url: "https://datatracker.ietf.org/doc/html/rfc3339#section-5.6")
+
 input CarWhereUniqueInput {
   id: ID
 }
@@ -335,6 +339,7 @@ input CarWhereInput {
   OR: [CarWhereInput!]
   NOT: [CarWhereInput!]
   id: IDFilter
+  dateAdded: CalendarDayNullableFilter
   year: IntNullableFilter
   make: StringFilter
   model: StringFilter
@@ -342,6 +347,17 @@ input CarWhereInput {
   vin: StringFilter
   income: IncomeManyRelationFilter
   expense: ExpenseManyRelationFilter
+}
+
+input CalendarDayNullableFilter {
+  equals: CalendarDay
+  in: [CalendarDay!]
+  notIn: [CalendarDay!]
+  lt: CalendarDay
+  lte: CalendarDay
+  gt: CalendarDay
+  gte: CalendarDay
+  not: CalendarDayNullableFilter
 }
 
 input IntNullableFilter {
@@ -369,6 +385,7 @@ input ExpenseManyRelationFilter {
 
 input CarOrderByInput {
   id: OrderDirection
+  dateAdded: OrderDirection
   year: OrderDirection
   make: OrderDirection
   model: OrderDirection
@@ -377,6 +394,7 @@ input CarOrderByInput {
 }
 
 input CarUpdateInput {
+  dateAdded: CalendarDay
   year: Int
   make: String
   model: String
@@ -406,6 +424,7 @@ input CarUpdateArgs {
 }
 
 input CarCreateInput {
+  dateAdded: CalendarDay
   year: Int
   make: String
   model: String
@@ -435,9 +454,6 @@ type Income {
   car: Car
 }
 
-scalar CalendarDay
-  @specifiedBy(url: "https://datatracker.ietf.org/doc/html/rfc3339#section-5.6")
-
 input IncomeWhereUniqueInput {
   id: ID
 }
@@ -464,17 +480,6 @@ input FloatNullableFilter {
   gt: Float
   gte: Float
   not: FloatNullableFilter
-}
-
-input CalendarDayNullableFilter {
-  equals: CalendarDay
-  in: [CalendarDay!]
-  notIn: [CalendarDay!]
-  lt: CalendarDay
-  lte: CalendarDay
-  gt: CalendarDay
-  gte: CalendarDay
-  not: CalendarDayNullableFilter
 }
 
 input IncomeOrderByInput {

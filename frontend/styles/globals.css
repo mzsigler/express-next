@@ -9,6 +9,7 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+
 }
 
 * {
@@ -56,9 +57,9 @@ a {
   padding: 1.5rem;
 }
 
-.viewCar {
-  padding: 1rem;
-  border: 1px solid white;
+.carCard>a {
+  color: red;
+  border: 1px solid red;
 }
 
 @media (prefers-color-scheme: dark) {

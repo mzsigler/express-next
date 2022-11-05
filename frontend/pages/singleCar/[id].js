@@ -1,7 +1,5 @@
 import { useQuery, gql } from "@apollo/client";
-import { concatAST } from "graphql";
 import { useRouter } from "next/router";
-import CarCard from "../../Components/CarCard";
 import Header from "../../Components/Header";
 
 const SINGLE_CAR_QUERY = gql`
@@ -9,6 +7,7 @@ const SINGLE_CAR_QUERY = gql`
         car(where: {id: $id}){
             id, 
             year, 
+            dateAdded,
             make, 
             model,
             vin,
@@ -45,6 +44,12 @@ export default function SingleCar(){
         const income = data.car.income;
         const incomeAmounts = income.map(income => income.amount);
         incomeTotal = incomeAmounts.reduce((start, i) => start + i, 0);
+        console.log(data.car.dateAdded);
+        const added = new Date(data.car.dateAdded);
+        const today = Date.now();
+        const todayDate = new Date(today);
+        console.log(added);
+        console.log(todayDate);
 
     }
 
@@ -58,9 +63,9 @@ export default function SingleCar(){
             <p>{data.car.make}</p>
             <p>{data.car.model}</p>
             <p>{data.car.vin}</p>
-            <p>Total Expenses: {expenseTotal}</p>
+            <p>Total Expenses: {expenseTotal} <button>View</button></p>
             <p>Total Income: {incomeTotal} <button>View</button></p>
-            <p>Net: {incomeTotal - expenseTotal} <button>View</button></p>
+            <p>Net: {(incomeTotal - expenseTotal).toFixed(2)} </p>
         </div>
         }
 
