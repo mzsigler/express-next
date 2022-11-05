@@ -65,7 +65,7 @@ export default function SingleCar(){
             <p>{data.car.vin}</p>
             <p>Total Expenses: {expenseTotal} <button>View</button></p>
             <p>Total Income: {incomeTotal} <button>View</button></p>
-            <p>Net: {(incomeTotal - expenseTotal).toFixed(2)} </p>
+            <p>Net: ${(incomeTotal - expenseTotal).toFixed(2)} </p>
         </div>
         }
 

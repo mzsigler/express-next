@@ -33,10 +33,10 @@
     "tslib" "^2.3.0"
     "zen-observable-ts" "^1.2.5"
 
-"@apollo/protobufjs@1.2.4":
-  "integrity" "sha512-npVJ9NVU/pynj+SCU+fambvTneJDyCnif738DnZ7pCxdDtzeEz7WkpSIq5wNUmWm5Td55N+S2xfqZ+WP4hDLng=="
-  "resolved" "https://registry.npmjs.org/@apollo/protobufjs/-/protobufjs-1.2.4.tgz"
-  "version" "1.2.4"
+"@apollo/protobufjs@1.2.6":
+  "integrity" "sha512-Wqo1oSHNUj/jxmsVp4iR3I480p6qdqHikn38lKrFhfzcDJ7lwd7Ck7cHRl4JE81tWNArl77xhnG/OkZhxKBYOw=="
+  "resolved" "https://registry.npmjs.org/@apollo/protobufjs/-/protobufjs-1.2.6.tgz"
+  "version" "1.2.6"
   dependencies:
     "@protobufjs/aspromise" "^1.1.2"
     "@protobufjs/base64" "^1.1.2"
@@ -1766,9 +1766,9 @@
     "graphql" "^15.8.0"
 
 "@keystone-6/core@^2.1.0":
-  "integrity" "sha512-/IK7wEv78uy3C34eh2YxZmjoKDkpEEDxI49Fm2EfzV56o/C3hrF2WeNJ4rUYD+Kz++ZN74e/Pk/EI13pxtcbTg=="
-  "resolved" "https://registry.npmjs.org/@keystone-6/core/-/core-2.3.0.tgz"
-  "version" "2.3.0"
+  "integrity" "sha512-C6Ngn2iydcUOD6MwFe6qIekq3el5RscJNpNZvOatEPGkFW3nKV34HNXsGXsn1Q9fCWRtlv2vwGI0pZO13xQ6cQ=="
+  "resolved" "https://registry.npmjs.org/@keystone-6/core/-/core-2.3.1.tgz"
+  "version" "2.3.1"
   dependencies:
     "@apollo/client" "3.6.9"
     "@aws-sdk/client-s3" "^3.83.0"
@@ -2769,17 +2769,17 @@
     "@apollo/utils.keyvaluecache" "^1.0.1"
     "apollo-server-env" "^4.2.1"
 
-"apollo-reporting-protobuf@^3.3.1", "apollo-reporting-protobuf@^3.3.2":
-  "integrity" "sha512-j1tx9tmkVdsLt1UPzBrvz90PdjAeKW157WxGn+aXlnnGfVjZLIRXX3x5t1NWtXvB7rVaAsLLILLtDHW382TSoQ=="
-  "resolved" "https://registry.npmjs.org/apollo-reporting-protobuf/-/apollo-reporting-protobuf-3.3.2.tgz"
-  "version" "3.3.2"
+"apollo-reporting-protobuf@^3.3.1", "apollo-reporting-protobuf@^3.3.3":
+  "integrity" "sha512-L3+DdClhLMaRZWVmMbBcwl4Ic77CnEBPXLW53F7hkYhkaZD88ivbCVB1w/x5gunO6ZHrdzhjq0FHmTsBvPo7aQ=="
+  "resolved" "https://registry.npmjs.org/apollo-reporting-protobuf/-/apollo-reporting-protobuf-3.3.3.tgz"
+  "version" "3.3.3"
   dependencies:
-    "@apollo/protobufjs" "1.2.4"
+    "@apollo/protobufjs" "1.2.6"
 
 "apollo-server-core@^3.10.2", "apollo-server-core@^3.5.0":
-  "integrity" "sha512-/1o9KPoAMgcjJJ9Y0IH1665wf9d02L/m/mcfBOHiFmRgeGkNgrhTy59BxQTBK241USAWMhwMpp171cv/hM5Dng=="
-  "resolved" "https://registry.npmjs.org/apollo-server-core/-/apollo-server-core-3.10.2.tgz"
-  "version" "3.10.2"
+  "integrity" "sha512-t/eCKrRFK1lYZlc5pHD99iG7Np7CEm3SmbDiONA7fckR3EaB/pdsEdIkIwQ5QBBpT5JLp/nwvrZRVwhaWmaRvw=="
+  "resolved" "https://registry.npmjs.org/apollo-server-core/-/apollo-server-core-3.11.1.tgz"
+  "version" "3.11.1"
   dependencies:
     "@apollo/utils.keyvaluecache" "^1.0.1"
     "@apollo/utils.logger" "^1.0.0"
@@ -2790,18 +2790,19 @@
     "@graphql-tools/schema" "^8.0.0"
     "@josephg/resolvable" "^1.0.0"
     "apollo-datasource" "^3.3.2"
-    "apollo-reporting-protobuf" "^3.3.2"
+    "apollo-reporting-protobuf" "^3.3.3"
     "apollo-server-env" "^4.2.1"
     "apollo-server-errors" "^3.3.1"
-    "apollo-server-plugin-base" "^3.6.2"
-    "apollo-server-types" "^3.6.2"
+    "apollo-server-plugin-base" "^3.7.1"
+    "apollo-server-types" "^3.7.1"
     "async-retry" "^1.2.1"
     "fast-json-stable-stringify" "^2.1.0"
     "graphql-tag" "^2.11.0"
     "loglevel" "^1.6.8"
     "lru-cache" "^6.0.0"
+    "node-abort-controller" "^3.0.1"
     "sha.js" "^2.4.11"
-    "uuid" "^8.0.0"
+    "uuid" "^9.0.0"
     "whatwg-mimetype" "^3.0.0"
 
 "apollo-server-env@^4.2.1":
@@ -2843,21 +2844,21 @@
     "apollo-server-types" "^3.6.2"
     "type-is" "^1.6.18"
 
-"apollo-server-plugin-base@^3.6.2":
-  "integrity" "sha512-erWXjLOO1u7fxQkbxJ2cwSO7p0tYzNied91I1SJ9tikXZ/2eZUyDyvrpI+4g70kOdEi+AmJ5Fo8ahEXKJ75zdg=="
-  "resolved" "https://registry.npmjs.org/apollo-server-plugin-base/-/apollo-server-plugin-base-3.6.2.tgz"
-  "version" "3.6.2"
+"apollo-server-plugin-base@^3.7.1":
+  "integrity" "sha512-g3vJStmQtQvjGI289UkLMfThmOEOddpVgHLHT2bNj0sCD/bbisj4xKbBHETqaURokteqSWyyd4RDTUe0wAUDNQ=="
+  "resolved" "https://registry.npmjs.org/apollo-server-plugin-base/-/apollo-server-plugin-base-3.7.1.tgz"
+  "version" "3.7.1"
   dependencies:
-    "apollo-server-types" "^3.6.2"
+    "apollo-server-types" "^3.7.1"
 
-"apollo-server-types@^3.4.0", "apollo-server-types@^3.6.2":
-  "integrity" "sha512-9Z54S7NB+qW1VV+kmiqwU2Q6jxWfX89HlSGCGOo3zrkrperh85LrzABgN9S92+qyeHYd72noMDg2aI039sF3dg=="
-  "resolved" "https://registry.npmjs.org/apollo-server-types/-/apollo-server-types-3.6.2.tgz"
-  "version" "3.6.2"
+"apollo-server-types@^3.4.0", "apollo-server-types@^3.6.2", "apollo-server-types@^3.7.1":
+  "integrity" "sha512-aE9RDVplmkaOj/OduNmGa+0a1B5RIWI0o3zC1zLvBTVWMKTpo0ifVf11TyMkLCY+T7cnZqVqwyShziOyC3FyUw=="
+  "resolved" "https://registry.npmjs.org/apollo-server-types/-/apollo-server-types-3.7.1.tgz"
+  "version" "3.7.1"
   dependencies:
     "@apollo/utils.keyvaluecache" "^1.0.1"
     "@apollo/utils.logger" "^1.0.0"
-    "apollo-reporting-protobuf" "^3.3.2"
+    "apollo-reporting-protobuf" "^3.3.3"
     "apollo-server-env" "^4.2.1"
 
 "apollo-upload-client@^17.0.0":
@@ -6726,10 +6727,15 @@
   "resolved" "https://registry.npmjs.org/uuid/-/uuid-3.4.0.tgz"
   "version" "3.4.0"
 
-"uuid@^8.0.0", "uuid@^8.3.0", "uuid@^8.3.2", "uuid@8.3.2":
+"uuid@^8.3.0", "uuid@^8.3.2", "uuid@8.3.2":
   "integrity" "sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg=="
   "resolved" "https://registry.npmjs.org/uuid/-/uuid-8.3.2.tgz"
   "version" "8.3.2"
+
+"uuid@^9.0.0":
+  "integrity" "sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg=="
+  "resolved" "https://registry.npmjs.org/uuid/-/uuid-9.0.0.tgz"
+  "version" "9.0.0"
 
 "validate-npm-package-license@^3.0.1":
   "integrity" "sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew=="
