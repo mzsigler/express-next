@@ -26,6 +26,8 @@ export default function SingleCar(){
 
     let expenseTotal;
     let incomeTotal; 
+    let daysOnline;
+    let netPerDay; 
 
     const router = useRouter();
     const { id } = router.query;
@@ -44,12 +46,10 @@ export default function SingleCar(){
         const income = data.car.income;
         const incomeAmounts = income.map(income => income.amount);
         incomeTotal = incomeAmounts.reduce((start, i) => start + i, 0);
-        console.log(data.car.dateAdded);
-        const added = new Date(data.car.dateAdded);
+        const added = Date.parse(data.car.dateAdded);
         const today = Date.now();
-        const todayDate = new Date(today);
-        console.log(added);
-        console.log(todayDate);
+        daysOnline = Math.floor((today - added) / (1000 * 3600 * 24));
+        netPerDay = ((incomeTotal - expenseTotal) / daysOnline).toFixed(2);
 
     }
 
@@ -66,6 +66,8 @@ export default function SingleCar(){
             <p>Total Expenses: {expenseTotal} <button>View</button></p>
             <p>Total Income: {incomeTotal} <button>View</button></p>
             <p>Net: ${(incomeTotal - expenseTotal).toFixed(2)} </p>
+            <p>Days Online: {daysOnline}</p>
+            <p>Net Per Day: {netPerDay}</p>
         </div>
         }
 
