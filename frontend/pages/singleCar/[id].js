@@ -2,6 +2,7 @@ import { useQuery, gql } from "@apollo/client";
 import { useRouter } from "next/router";
 import Header from "../../Components/Header";
 import styled from "styled-components";
+import Link from "next/link";
 
 const SINGLE_CAR_QUERY = gql`
     query($id: ID!){
@@ -31,6 +32,7 @@ const SingleCarStyle = styled.div`
     background: darkblue;
     border: 1px solid cornflowerblue;
     border-radius: 10px;
+    gap: 0.25rem
 `
 
 export default function SingleCar(){
@@ -75,11 +77,11 @@ export default function SingleCar(){
             <p>{data.car.make}</p>
             <p>{data.car.model}</p>
             <p>{data.car.vin}</p>
-            <p>Total Expenses: {expenseTotal} <button>View</button></p>
-            <p>Total Income: {incomeTotal} <button>View</button></p>
+            <p>Total Expenses: ${expenseTotal} <Link href={`/expenses/${data.car.id}`}>View</Link></p>
+            <p>Total Income: ${incomeTotal} <button>View</button></p>
             <p>Net: ${(incomeTotal - expenseTotal).toFixed(2)} </p>
-            <p>Days Online: {daysOnline}</p>
-            <p>Net Per Day: {netPerDay}</p>
+            <p>Days Online: ${daysOnline}</p>
+            <p>Net Per Day: ${netPerDay}</p>
             </SingleCarStyle>
         </div>
         }
