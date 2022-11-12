@@ -17,6 +17,7 @@ a {
 }
 
 .header {
+  color: cornflowerblue;
   display: flex;
   justify-content: space-between;
   padding: 1.5rem;
@@ -37,6 +38,7 @@ a {
 .carCard,
 .singleCar {
   padding: 1.5rem;
+  color: cornflowerblue;
 }
 
 .singleCar {

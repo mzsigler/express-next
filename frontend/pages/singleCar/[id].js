@@ -32,7 +32,16 @@ const SingleCarStyle = styled.div`
     background: darkblue;
     border: 1px solid cornflowerblue;
     border-radius: 10px;
-    gap: 0.25rem
+    gap: 0.25rem;
+    a {
+       border: 1px solid cornflowerblue;
+       padding: 0.25rem;
+       border-radius: 10px;
+       margin-left: auto;
+    };
+    a:hover {
+        background-color: red;
+    }
 `
 
 export default function SingleCar(){

@@ -3,17 +3,18 @@ import Link from "next/link";
 
 const StyledCarCard = styled.div`
     padding: 1rem;
+    background-color: darkblue;
     min-width: 300px;
     display: grid;
     grid-template-columns: 1fr;
     justify-items: center;
     font-size: 1.5rem;
-    border: 1px solid yellow;
+    border: 1px solid cornflowerblue;
     border-radius: 10px;
     gap: 10px;
      
      a{
-        border: 1px solid yellow;
+        border: 1px solid cornflowerblue;
         border-radius: 10px;
         padding: 0.5rem;
      }`
