@@ -32,8 +32,8 @@ const TableStyle = styled.table`
 const TotalStyle = styled.div`
     display: flex;
     width: 100%;
-    justify-content: flex-end;
-    padding: 1rem;
+    justify-content: center;
+    padding: 1.5rem;
 `
 
 
