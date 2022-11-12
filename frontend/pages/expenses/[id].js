@@ -29,6 +29,13 @@ const TableStyle = styled.table`
     }
 `
 
+const TotalStyle = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    padding: 1rem;
+`
+
 
 
 
@@ -36,6 +43,7 @@ export default function SingleExpense(){
 
     const router = useRouter();
     const { id } = router.query;
+    let total = 0;
 
     const {error, loading, data} = useQuery(EXPENSE_QUERY, {
         variables: {
@@ -44,6 +52,11 @@ export default function SingleExpense(){
     });
 
     console.log(data)
+
+    if(data){
+        const expenses = data.expenses.map(expense => expense.amount);
+        total = expenses.reduce((start, i) => start + i, 0);
+    }
 
     return(
         <div>
@@ -68,6 +81,10 @@ export default function SingleExpense(){
             })}
                     
                 </TableStyle>
+                <TotalStyle>
+                   Total: ${total}
+                </TotalStyle>
+            
         </div>
     )
 }

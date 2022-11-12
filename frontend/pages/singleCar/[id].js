@@ -41,6 +41,7 @@ const SingleCarStyle = styled.div`
     };
     a:hover {
         background-color: red;
+        color: black;
     }
 `
 
