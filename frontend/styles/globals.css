@@ -39,6 +39,15 @@ a {
   padding: 1.5rem;
 }
 
+.singleCar {
+  align-self: center;
+  width: 80vw;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  margin-left: 10vw;
+}
+
 .note {
   padding: 1rem;
   border: 1px solid yellow;

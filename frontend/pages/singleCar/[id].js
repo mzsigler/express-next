@@ -1,6 +1,7 @@
 import { useQuery, gql } from "@apollo/client";
 import { useRouter } from "next/router";
 import Header from "../../Components/Header";
+import styled from "styled-components";
 
 const SINGLE_CAR_QUERY = gql`
     query($id: ID!){
@@ -20,6 +21,16 @@ const SINGLE_CAR_QUERY = gql`
             }
         }
     }
+`
+
+const SingleCarStyle = styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    padding: 2rem;
+    background: darkblue;
+    border: 1px solid cornflowerblue;
+    border-radius: 10px;
 `
 
 export default function SingleCar(){
@@ -58,6 +69,7 @@ export default function SingleCar(){
             <Header />
         {data && 
         <div className="singleCar">
+            <SingleCarStyle>
             <p>{data.car.inv}</p>
             <p>{data.car.year}</p>
             <p>{data.car.make}</p>
@@ -68,6 +80,7 @@ export default function SingleCar(){
             <p>Net: ${(incomeTotal - expenseTotal).toFixed(2)} </p>
             <p>Days Online: {daysOnline}</p>
             <p>Net Per Day: {netPerDay}</p>
+            </SingleCarStyle>
         </div>
         }
 
