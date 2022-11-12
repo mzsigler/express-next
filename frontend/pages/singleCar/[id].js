@@ -40,7 +40,7 @@ const SingleCarStyle = styled.div`
        margin-left: auto;
     };
     a:hover {
-        background-color: red;
+        background-color: white;
         color: black;
     }
 `
@@ -88,7 +88,7 @@ export default function SingleCar(){
             <p>{data.car.model}</p>
             <p>{data.car.vin}</p>
             <p>Total Expenses: ${expenseTotal} <Link href={`/expenses/${data.car.id}`}>View</Link></p>
-            <p>Total Income: ${incomeTotal} <button>View</button></p>
+            <p>Total Income: ${incomeTotal} <Link href={`/incomes/${data.car.id}`}>View</Link></p>
             <p>Net: ${(incomeTotal - expenseTotal).toFixed(2)} </p>
             <p>Days Online: ${daysOnline}</p>
             <p>Net Per Day: ${netPerDay}</p>
