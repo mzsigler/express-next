@@ -203,6 +203,7 @@ export const lists: Lists = {
   Payment: list({
     fields: {
       paymentAmount: float(),
+      date: calendarDay(),
       balance: relationship({ ref: "Balance.payment" }),
     }
   })

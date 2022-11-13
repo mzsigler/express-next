@@ -2,8 +2,35 @@ import { gql } from "@apollo/client"
 import { useLazyQuery } from "@apollo/client"
 import styled from "styled-components"
 import Link from "next/link"
+import BalCard from "./BalCard"
+
+const StyledBalResults = styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+`
+
+
 
 export default function BalDue(){
+
+    const NAME_QUERY = gql`
+    query($name: String!){
+        balances(where: {name: {contains: $name}}){
+            name,
+            id,
+            balanceAmount,
+            SSN,
+            dateOfBirth,
+            returnDate,
+            payment{
+                paymentAmount,
+                date
+            }
+        }
+    }
+`
+    const [nameQuery, {data: nameData, loading: nameLoading, error: nameError }] = useLazyQuery(NAME_QUERY);
 
     function handleForm(e){
         e.preventDefault();
@@ -11,7 +38,8 @@ export default function BalDue(){
         const searchField = (e.target.form.field.value);
 
         if(searchField === "name"){
-            console.log("You searched by name.");
+            nameQuery({variables: {name: searchTerm}});
+            console.log(nameData);
         }
 
         if(searchField === "ssn"){
@@ -35,6 +63,13 @@ export default function BalDue(){
                 </select>
                 <button onClick={handleForm}>Search</button>
             </form>
+            <StyledBalResults>
+                {nameData && nameData.balances.map(bal => {
+                    return(
+                        <BalCard bal={bal} key={bal.id}/>
+                    )
+                })}
+            </StyledBalResults>
         </div>
     )
 }

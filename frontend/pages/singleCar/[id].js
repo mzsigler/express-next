@@ -90,7 +90,7 @@ export default function SingleCar(){
             <p>Total Expenses: ${expenseTotal} <Link href={`/expenses/${data.car.id}`}>View</Link></p>
             <p>Total Income: ${incomeTotal} <Link href={`/incomes/${data.car.id}`}>View</Link></p>
             <p>Net: ${(incomeTotal - expenseTotal).toFixed(2)} </p>
-            <p>Days Online: ${daysOnline}</p>
+            <p>Days Online: {daysOnline}</p>
             <p>Net Per Day: ${netPerDay}</p>
             </SingleCarStyle>
         </div>

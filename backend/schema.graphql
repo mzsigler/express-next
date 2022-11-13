@@ -715,6 +715,7 @@ input PaymentRelateToManyForCreateInput {
 type Payment {
   id: ID!
   paymentAmount: Float
+  date: CalendarDay
   balance: Balance
 }
 
@@ -728,16 +729,19 @@ input PaymentWhereInput {
   NOT: [PaymentWhereInput!]
   id: IDFilter
   paymentAmount: FloatNullableFilter
+  date: CalendarDayNullableFilter
   balance: BalanceWhereInput
 }
 
 input PaymentOrderByInput {
   id: OrderDirection
   paymentAmount: OrderDirection
+  date: OrderDirection
 }
 
 input PaymentUpdateInput {
   paymentAmount: Float
+  date: CalendarDay
   balance: BalanceRelateToOneForUpdateInput
 }
 
@@ -754,6 +758,7 @@ input PaymentUpdateArgs {
 
 input PaymentCreateInput {
   paymentAmount: Float
+  date: CalendarDay
   balance: BalanceRelateToOneForCreateInput
 }
 

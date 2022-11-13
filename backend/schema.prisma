@@ -99,6 +99,7 @@ model Balance {
 model Payment {
   id            String   @id @default(cuid())
   paymentAmount Float?
+  date          String?
   balance       Balance? @relation("Payment_balance", fields: [balanceId], references: [id])
   balanceId     String?  @map("balance")
 
