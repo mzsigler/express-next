@@ -604,6 +604,13 @@ type Balance {
   notes: String
   localContactName: String
   localContactPhone: String
+  payment(
+    where: PaymentWhereInput! = {}
+    orderBy: [PaymentOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Payment!]
+  paymentCount(where: PaymentWhereInput! = {}): Int
 }
 
 input BalanceWhereUniqueInput {
@@ -628,6 +635,13 @@ input BalanceWhereInput {
   notes: StringFilter
   localContactName: StringFilter
   localContactPhone: StringFilter
+  payment: PaymentManyRelationFilter
+}
+
+input PaymentManyRelationFilter {
+  every: PaymentWhereInput
+  some: PaymentWhereInput
+  none: PaymentWhereInput
 }
 
 input BalanceOrderByInput {
@@ -661,6 +675,14 @@ input BalanceUpdateInput {
   notes: String
   localContactName: String
   localContactPhone: String
+  payment: PaymentRelateToManyForUpdateInput
+}
+
+input PaymentRelateToManyForUpdateInput {
+  disconnect: [PaymentWhereUniqueInput!]
+  set: [PaymentWhereUniqueInput!]
+  create: [PaymentCreateInput!]
+  connect: [PaymentWhereUniqueInput!]
 }
 
 input BalanceUpdateArgs {
@@ -682,41 +704,62 @@ input BalanceCreateInput {
   notes: String
   localContactName: String
   localContactPhone: String
+  payment: PaymentRelateToManyForCreateInput
 }
 
-type BalancePayment {
+input PaymentRelateToManyForCreateInput {
+  create: [PaymentCreateInput!]
+  connect: [PaymentWhereUniqueInput!]
+}
+
+type Payment {
   id: ID!
   paymentAmount: Float
+  balance: Balance
 }
 
-input BalancePaymentWhereUniqueInput {
+input PaymentWhereUniqueInput {
   id: ID
 }
 
-input BalancePaymentWhereInput {
-  AND: [BalancePaymentWhereInput!]
-  OR: [BalancePaymentWhereInput!]
-  NOT: [BalancePaymentWhereInput!]
+input PaymentWhereInput {
+  AND: [PaymentWhereInput!]
+  OR: [PaymentWhereInput!]
+  NOT: [PaymentWhereInput!]
   id: IDFilter
   paymentAmount: FloatNullableFilter
+  balance: BalanceWhereInput
 }
 
-input BalancePaymentOrderByInput {
+input PaymentOrderByInput {
   id: OrderDirection
   paymentAmount: OrderDirection
 }
 
-input BalancePaymentUpdateInput {
+input PaymentUpdateInput {
   paymentAmount: Float
+  balance: BalanceRelateToOneForUpdateInput
 }
 
-input BalancePaymentUpdateArgs {
-  where: BalancePaymentWhereUniqueInput!
-  data: BalancePaymentUpdateInput!
+input BalanceRelateToOneForUpdateInput {
+  create: BalanceCreateInput
+  connect: BalanceWhereUniqueInput
+  disconnect: Boolean
 }
 
-input BalancePaymentCreateInput {
+input PaymentUpdateArgs {
+  where: PaymentWhereUniqueInput!
+  data: PaymentUpdateInput!
+}
+
+input PaymentCreateInput {
   paymentAmount: Float
+  balance: BalanceRelateToOneForCreateInput
+}
+
+input BalanceRelateToOneForCreateInput {
+  create: BalanceCreateInput
+  connect: BalanceWhereUniqueInput
 }
 
 """
@@ -776,17 +819,15 @@ type Mutation {
   updateBalances(data: [BalanceUpdateArgs!]!): [Balance]
   deleteBalance(where: BalanceWhereUniqueInput!): Balance
   deleteBalances(where: [BalanceWhereUniqueInput!]!): [Balance]
-  createBalancePayment(data: BalancePaymentCreateInput!): BalancePayment
-  createBalancePayments(data: [BalancePaymentCreateInput!]!): [BalancePayment]
-  updateBalancePayment(
-    where: BalancePaymentWhereUniqueInput!
-    data: BalancePaymentUpdateInput!
-  ): BalancePayment
-  updateBalancePayments(data: [BalancePaymentUpdateArgs!]!): [BalancePayment]
-  deleteBalancePayment(where: BalancePaymentWhereUniqueInput!): BalancePayment
-  deleteBalancePayments(
-    where: [BalancePaymentWhereUniqueInput!]!
-  ): [BalancePayment]
+  createPayment(data: PaymentCreateInput!): Payment
+  createPayments(data: [PaymentCreateInput!]!): [Payment]
+  updatePayment(
+    where: PaymentWhereUniqueInput!
+    data: PaymentUpdateInput!
+  ): Payment
+  updatePayments(data: [PaymentUpdateArgs!]!): [Payment]
+  deletePayment(where: PaymentWhereUniqueInput!): Payment
+  deletePayments(where: [PaymentWhereUniqueInput!]!): [Payment]
   endSession: Boolean!
   authenticateUserWithPassword(
     email: String!
@@ -873,14 +914,14 @@ type Query {
   ): [Balance!]
   balance(where: BalanceWhereUniqueInput!): Balance
   balancesCount(where: BalanceWhereInput! = {}): Int
-  balancePayments(
-    where: BalancePaymentWhereInput! = {}
-    orderBy: [BalancePaymentOrderByInput!]! = []
+  payments(
+    where: PaymentWhereInput! = {}
+    orderBy: [PaymentOrderByInput!]! = []
     take: Int
     skip: Int! = 0
-  ): [BalancePayment!]
-  balancePayment(where: BalancePaymentWhereUniqueInput!): BalancePayment
-  balancePaymentsCount(where: BalancePaymentWhereInput! = {}): Int
+  ): [Payment!]
+  payment(where: PaymentWhereUniqueInput!): Payment
+  paymentsCount(where: PaymentWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }

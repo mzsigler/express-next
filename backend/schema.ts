@@ -196,12 +196,14 @@ export const lists: Lists = {
       notes: text(),
       localContactName: text(),
       localContactPhone: text(),
+      payment: relationship({ ref: "Payment.balance", many: true }),
     }
   }),
 
-  BalancePayment: list({
+  Payment: list({
     fields: {
       paymentAmount: float(),
+      balance: relationship({ ref: "Balance.payment" }),
     }
   })
 

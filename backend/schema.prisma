@@ -79,23 +79,28 @@ model Expense {
 }
 
 model Balance {
-  id                  String  @id @default(cuid())
-  name                String  @default("")
+  id                  String    @id @default(cuid())
+  name                String    @default("")
   balanceAmount       Float?
   returnDate          String?
-  driverLicenseState  String  @default("")
-  driverLicenseNumber String  @default("")
-  SSN                 String  @default("")
-  phone               String  @default("")
-  employer            String  @default("")
-  employerPhone       String  @default("")
-  dateOfBirth         String  @default("")
-  notes               String  @default("")
-  localContactName    String  @default("")
-  localContactPhone   String  @default("")
+  driverLicenseState  String    @default("")
+  driverLicenseNumber String    @default("")
+  SSN                 String    @default("")
+  phone               String    @default("")
+  employer            String    @default("")
+  employerPhone       String    @default("")
+  dateOfBirth         String    @default("")
+  notes               String    @default("")
+  localContactName    String    @default("")
+  localContactPhone   String    @default("")
+  payment             Payment[] @relation("Payment_balance")
 }
 
-model BalancePayment {
-  id            String @id @default(cuid())
+model Payment {
+  id            String   @id @default(cuid())
   paymentAmount Float?
+  balance       Balance? @relation("Payment_balance", fields: [balanceId], references: [id])
+  balanceId     String?  @map("balance")
+
+  @@index([balanceId])
 }
