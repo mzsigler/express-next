@@ -24,7 +24,7 @@ export default function BalCard({bal}){
     return(
         <StyledBalDiv>
             <h2>{bal.name}</h2>
-            <span>Amount: ${bal.balanceAmount}</span>
+            <span>Original Amount: ${bal.balanceAmount}</span>
             <span>Return Date: {bal.returnDate}</span>
             <span>Date of Birth: {bal.dateOfBirth}</span>
             <Link href={`/balDetails/${bal.id}`}>View Details</Link>

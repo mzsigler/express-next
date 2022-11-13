@@ -2,6 +2,7 @@ import Header from "../../Components/Header";
 import { useRouter } from "next/router";
 import { useQuery, gql } from "@apollo/client";
 import styled from "styled-components";
+import Link from "next/link";
 
 const BalDueStyle = styled.div`
     width: 60%;
@@ -9,6 +10,16 @@ const BalDueStyle = styled.div`
     padding: 2rem;
     margin-left: 20%;
     border: 1px solid cornflowerblue;
+    a {
+       border: 1px solid cornflowerblue;
+       padding: 0.25rem;
+       border-radius: 10px;
+       margin-left: auto;
+    };
+    a:hover {
+        background-color: white;
+        color: black;
+    }
 `
 
 
@@ -78,9 +89,11 @@ export default function BalDetails(){
                 <p>Local Contact: {data.balance.localContactName}</p>
                 <p>Local Contact Phone: {data.balance.localContactPhone}</p>
                 <p>Notes: {data.balance.notes}</p>
-                <p>Total Payments: ${totalPayments}</p>
+                <p>Total Payments: ${totalPayments} <Link href={`/paymentDetail/${id}`}>View Payments</Link> </p> 
                 <p>Current Balance: ${data.balance.balanceAmount - totalPayments}</p>
                 <p>Paid in full? {paidInFull === true ? "Yes":"No"}</p>
+                
+
 
             </BalDueStyle>}
             
