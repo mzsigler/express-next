@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useQuery, gql } from "@apollo/client";
 import Header from "../../Components/Header";
+import styled from "styled-components";
 
 const PAYMENTS_QUERY = gql`
     query($id: ID!){
@@ -16,6 +17,23 @@ const PAYMENTS_QUERY = gql`
     }
 `;
 
+const BalancePaymentTableStyled = styled.table`
+    width: 60%;
+    background-color: darkblue;
+    margin-left: 20%;
+    padding: 1rem;
+    text-align: center;
+    td{
+        border: 1px solid cornflowerblue;
+    }
+`
+const StyledTotal = styled.span`
+    padding: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    `
+
 
 export default function PaymentDetails(){
 
@@ -25,20 +43,35 @@ export default function PaymentDetails(){
     const { data, loading, error } = useQuery(PAYMENTS_QUERY, {variables:
     { id }});
 
-    console.log(data);
+    let totalPayments;
 
+    totalPayments = data.balance.payment.map(payment => payment.paymentAmount);
 
     return (
         <div>
         <Header />
-            {data && data.balance.payment.map(payment => {
-                return(
-                    <div key={payment.id}>
-                        <p>{payment.paymentAmount}</p>
-                        <p>{payment.date}</p>
-                    </div>
-                )
-            })}
+            <BalancePaymentTableStyled>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                {data && data.balance.payment.map(payment => {
+                    return (
+                        <tbody key={payment.date}>
+                        <tr>
+                            <td>{payment.date}</td>
+                            <td>${payment.paymentAmount}</td>
+                        </tr>
+                        </tbody>
+                    );
+
+
+                })}
+            </BalancePaymentTableStyled>
+            <StyledTotal>Total Payments: ${totalPayments}</StyledTotal>
+
         </div>
     )
 }
