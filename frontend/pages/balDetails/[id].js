@@ -67,7 +67,7 @@ export default function BalDetails(){
 
             {data && 
             <BalDueStyle>
-                <h2> <em>{data.balance.name}</em></h2>
+                <h2> <strong>{data.balance.name}</strong></h2>
                 <p>Amount: ${data.balance.balanceAmount}</p>
                 <p>Return Date: {data.balance.returnDate}</p>
                 <p>DOB: {data.balance.dateOfBirth}</p>
@@ -79,6 +79,7 @@ export default function BalDetails(){
                 <p>Local Contact Phone: {data.balance.localContactPhone}</p>
                 <p>Notes: {data.balance.notes}</p>
                 <p>Total Payments: ${totalPayments}</p>
+                <p>Current Balance: ${data.balance.balanceAmount - totalPayments}</p>
                 <p>Paid in full? {paidInFull === true ? "Yes":"No"}</p>
 
             </BalDueStyle>}
