@@ -108,6 +108,7 @@ export default function BalDue(){
                 <button onClick={handleForm}>Search</button>
             </BalDueFormStyled>
             <StyledBalResults>
+                
                 {nameData && nameData.balances.map(bal => {
                     return(
                         <BalCard bal={bal} key={bal.id}/>

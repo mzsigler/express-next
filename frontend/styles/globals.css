@@ -55,12 +55,6 @@ a {
   justify-content: center;
 }
 
-.taxCalcResults {
-  display: grid;
-  grid-template-columns: 1fr;
-  justify-items: center;
-  padding: 1.5rem;
-}
 
 .carCard>a {
   color: red;

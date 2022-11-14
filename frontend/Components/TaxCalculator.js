@@ -1,4 +1,19 @@
 import { useState, useEffect } from "react";
+import styled from "styled-components";
+
+const TaxResultStyle = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  padding: 1.5rem;
+  background-color: darkblue;
+  width: 60%;
+  margin-left: 20%;
+  padding: 1rem;
+  margin-top: 1.5rem;
+  border: 1px solid cornflowerblue;
+  border-radius: 10px;
+`
 
 
 export default function TaxCalculator(){
@@ -79,9 +94,6 @@ export default function TaxCalculator(){
     };
 
 
-
-
-
     return(
         <div className="taxCalculator">
 
@@ -99,13 +111,13 @@ export default function TaxCalculator(){
 
             </form>
 
-            <div className="taxCalcResults">
+            <TaxResultStyle>
                 <p>TN State Tax: ${(results.tnTax).toFixed(2)} </p>
                 <p>Local Tax: ${(results.localTax).toFixed(2)} </p>
                 <p>Single Article Tax: ${(results.singleArticle).toFixed(2)} </p>
                 <p>Total Tax: ${(results.singleArticle + results.localTax + results.tnTax).toFixed(2)} </p>
                 <p>Total Price: ${(results.purchasePrice + results.singleArticle + results.localTax + results.tnTax).toFixed(2)}</p>
-            </div>
+            </TaxResultStyle>
 
             
 
