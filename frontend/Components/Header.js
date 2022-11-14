@@ -25,11 +25,6 @@ export default function Header(){
                         <a>Cars</a>
                     </Link>
                 </li>
-                <li>
-                    <Link href="/notes">
-                        <a>Notes</a>
-                    </Link>
-                </li>
             </ul>
         </div>
     )
