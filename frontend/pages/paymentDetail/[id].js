@@ -43,9 +43,12 @@ export default function PaymentDetails(){
     const { data, loading, error } = useQuery(PAYMENTS_QUERY, {variables:
     { id }});
 
-    let totalPayments;
+    let totalPayments = 0;
 
-    totalPayments = data.balance.payment.map(payment => payment.paymentAmount);
+    if(data){
+        totalPayments = data.balance.payment.map(payment => payment.paymentAmount);
+
+    }
 
     return (
         <div>

@@ -1,13 +1,20 @@
 import { gql } from "@apollo/client"
 import { useLazyQuery } from "@apollo/client"
 import styled from "styled-components"
-import Link from "next/link"
 import BalCard from "./BalCard"
 
 const StyledBalResults = styled.div`
     display: grid;
     grid-template-columns: 1fr;
     justify-items: center;
+`
+
+const BalDueFormStyled = styled.form`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 2rem;
 `
 
 
@@ -30,7 +37,45 @@ export default function BalDue(){
         }
     }
 `
+
+    const SSN_QUERY = gql`
+    query($ssn: String!){
+        balances(where: {SSN: {contains: $ssn}}){
+            name,
+            id,
+            balanceAmount,
+            SSN,
+            dateOfBirth,
+            returnDate,
+            payment{
+                paymentAmount,
+                date
+            }
+        }
+    }
+    `
+
+    const DL_QUERY = gql`
+        query($dl: String!){
+        balances(where: {driverLicenseNumber: {contains: $dl}}){
+            name,
+            id,
+            balanceAmount,
+            SSN,
+            dateOfBirth,
+            returnDate,
+            payment{
+                paymentAmount,
+                date
+            }
+        }
+    }
+    `
+
+
     const [nameQuery, {data: nameData, loading: nameLoading, error: nameError }] = useLazyQuery(NAME_QUERY);
+    const [ssnQuery, {data: ssnData, loading: ssnLoading, error: ssnError}] = useLazyQuery(SSN_QUERY);
+    const [dlQuery, {data: dlData, loading: dlLoading, error: dlError}] = useLazyQuery(DL_QUERY);
 
     function handleForm(e){
         e.preventDefault();
@@ -39,22 +84,21 @@ export default function BalDue(){
 
         if(searchField === "name"){
             nameQuery({variables: {name: searchTerm}});
-            console.log(nameData);
         }
 
         if(searchField === "ssn"){
-            console.log("You searched by SSN.");
+            ssnQuery({variables: {ssn: searchTerm}});
         }
 
         if(searchField === "dl"){
-            console.log("You searched by Driver's License number");
+            dlQuery({variables: {dl: searchTerm}});
         }
     }
 
 
     return (
         <div className="balDue">
-            <form>
+            <BalDueFormStyled>
                 <input type="text" name="searchBox" id="searchBox" />
                 <select name="field" id="field">
                     <option value="name">Name</option>
@@ -62,13 +106,27 @@ export default function BalDue(){
                     <option value="dl">License Number</option>
                 </select>
                 <button onClick={handleForm}>Search</button>
-            </form>
+            </BalDueFormStyled>
             <StyledBalResults>
                 {nameData && nameData.balances.map(bal => {
                     return(
                         <BalCard bal={bal} key={bal.id}/>
                     )
                 })}
+
+                {ssnData && ssnData.balances.map(bal => {
+                    return(
+                        <BalCard bal={bal} key={bal.id}/>
+                    )
+                })}
+
+                {dlData && dlData.balances.map(bal => {
+                    return(
+                        <BalCard bal={bal} key={bal.id}/>
+                    )
+                })}
+
+
             </StyledBalResults>
         </div>
     )

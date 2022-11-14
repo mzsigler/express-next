@@ -4,6 +4,7 @@ import { useQuery, gql } from "@apollo/client";
 import styled from "styled-components";
 import Link from "next/link";
 
+
 const BalDueStyle = styled.div`
     width: 60%;
     background-color: darkblue;
@@ -20,7 +21,7 @@ const BalDueStyle = styled.div`
         background-color: white;
         color: black;
     }
-`
+`;
 
 
 const SINGLE_BALANCE_QUERY = gql`
@@ -43,7 +44,7 @@ const SINGLE_BALANCE_QUERY = gql`
               date,
             },
         }
-    }`
+    }`;
 
 
 export default function BalDetails(){
@@ -58,10 +59,12 @@ export default function BalDetails(){
 
     const {data, loading, error} = useQuery(SINGLE_BALANCE_QUERY, {variables:{
         id
-    }})
+    }});
+
 
     
     if(data){
+        console.log(data);
         const payments = data.balance.payment.map(payment => payment.paymentAmount);
         totalPayments = payments.reduce((start, i) => start + i, 0);
         if(totalPayments >= data.balance.balanceAmount){
