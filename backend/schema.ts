@@ -204,6 +204,17 @@ export const lists: Lists = {
     fields: {
       paymentAmount: float(),
       date: calendarDay(),
+      method: select({
+        options: [
+          { label: 'Cash', value: 'cash' },
+          { label: 'Credit Card', value: 'cc' },
+          { label: 'CashApp', value: 'cashApp' },
+        ],
+        defaultValue: 'cash',
+        ui: {
+          displayMode: 'segmented-control',
+        },
+      }),
       balance: relationship({ ref: "Balance.payment" }),
     }
   })

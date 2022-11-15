@@ -12,6 +12,7 @@ const PAYMENTS_QUERY = gql`
             payment{
                 paymentAmount,
                 date,
+                method,
             }
         }
     }
@@ -25,6 +26,7 @@ const BalancePaymentTableStyled = styled.table`
     text-align: center;
     td{
         border: 1px solid cornflowerblue;
+        padding: 0.5rem;
     }
 `
 const StyledTotal = styled.span`
@@ -46,9 +48,9 @@ export default function PaymentDetails(){
     let totalPayments = 0;
 
     if(data){
-        totalPayments = data.balance.payment.map(payment => payment.paymentAmount);
-
-    }
+       const payments = data.balance.payment.map(payment => payment.paymentAmount);
+        totalPayments = payments.reduce((start, i) => start + i, 0);
+    };
 
     return (
         <div>
@@ -58,6 +60,7 @@ export default function PaymentDetails(){
                     <tr>
                         <th>Date</th>
                         <th>Amount</th>
+                        <th>Method</th>
                     </tr>
                 </thead>
                 {data && data.balance.payment.map(payment => {
@@ -66,6 +69,7 @@ export default function PaymentDetails(){
                         <tr>
                             <td>{payment.date}</td>
                             <td>${payment.paymentAmount}</td>
+                            <td>{payment.method}</td>
                         </tr>
                         </tbody>
                     );

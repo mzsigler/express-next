@@ -716,6 +716,7 @@ type Payment {
   id: ID!
   paymentAmount: Float
   date: CalendarDay
+  method: String
   balance: Balance
 }
 
@@ -730,6 +731,7 @@ input PaymentWhereInput {
   id: IDFilter
   paymentAmount: FloatNullableFilter
   date: CalendarDayNullableFilter
+  method: StringNullableFilter
   balance: BalanceWhereInput
 }
 
@@ -737,11 +739,13 @@ input PaymentOrderByInput {
   id: OrderDirection
   paymentAmount: OrderDirection
   date: OrderDirection
+  method: OrderDirection
 }
 
 input PaymentUpdateInput {
   paymentAmount: Float
   date: CalendarDay
+  method: String
   balance: BalanceRelateToOneForUpdateInput
 }
 
@@ -759,6 +763,7 @@ input PaymentUpdateArgs {
 input PaymentCreateInput {
   paymentAmount: Float
   date: CalendarDay
+  method: String
   balance: BalanceRelateToOneForCreateInput
 }
 
