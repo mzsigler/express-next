@@ -1,6 +1,10 @@
 import Link from "next/link";
+import SignIn from "./LogIn";
+import { useUser } from "./User";
 
 export default function Header(){
+    const user = useUser();
+    console.log(user);
     return(
         <div className="header">
             <h2>ECR APPS</h2>
@@ -24,6 +28,9 @@ export default function Header(){
                     <Link href="/cars">
                         <a>Cars</a>
                     </Link>
+                </li>
+                <li>
+                    <SignIn />
                 </li>
             </ul>
         </div>

@@ -14,7 +14,7 @@ const BalDueFormStyled = styled.form`
     display: flex;
     justify-content: center;
     gap: 8px;
-    padding: 2rem;
+    padding: 1rem;
 `
 
 
@@ -108,7 +108,7 @@ export default function BalDue(){
                 <button onClick={handleForm}>Search</button>
             </BalDueFormStyled>
             <StyledBalResults>
-                
+
                 {nameData && nameData.balances.map(bal => {
                     return(
                         <BalCard bal={bal} key={bal.id}/>
