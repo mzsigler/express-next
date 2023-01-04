@@ -13,6 +13,7 @@ export const CURRENT_USER_QUERY = gql`
 `;
 
 export function useUser() {
-  const { data, loading } = useQuery(CURRENT_USER_QUERY);
-  return data?.authenticatedItem;
+   const { data, loading } = useQuery(CURRENT_USER_QUERY);
+   return data?.authenticatedItem;
+   
 }

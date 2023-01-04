@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 import { useMutation } from "@apollo/client";
-import { CURRENT_USER_QUERY } from "./User";
+import { CURRENT_USER_QUERY, useUser } from "./User";
 
 const SIGNIN_MUTATION = gql`
   mutation SIGNIN_MUTATION($email: String!, $password: String!) {
@@ -19,24 +19,41 @@ const SIGNIN_MUTATION = gql`
   }
 `;
 
-function submitSignIn(e){
-    e.preventDefault();
-    const formEmail = e.target.form[0].value;
-    const formPassword = e.target.form[1].value;
-    console.log(email, password);
 
 
-}
 
-export default function SignIn(){
+
+export default function LogIn(){
+    
+    const [signIn, {data, loading}] = useMutation(SIGNIN_MUTATION);
+
+    async function submitSignIn(e){
+        e.preventDefault();
+        const formEmail = e.target.form[0].value;
+        const formPassword = e.target.form[1].value;
+        
+        const res = await signIn({
+            variables: {
+                email: formEmail, 
+                password: formPassword,
+            },
+            refetchQueries: [{CURRENT_USER_QUERY}],
+        });
+
+        console.log(res.data.authenticateUserWithPassword)
+    
+    }
+
+
+
     return (
         <div>
             <form>
-                <label for="email">
+                <label htmlFor="email">
                     Email
                     <input type="email" name="email" id="email" />
                 </label>
-                <label for="password">
+                <label htmlFor="password">
                     Password
                     <input type="password" name="password" id="password" />
                 </label>
