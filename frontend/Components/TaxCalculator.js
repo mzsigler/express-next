@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useUser } from "./User";
 
 const TaxResultStyle = styled.div`
   display: grid;

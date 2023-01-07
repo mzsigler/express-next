@@ -1,11 +1,14 @@
 import Link from "next/link";
-import { useUser } from "./User";
+import { CURRENT_USER_QUERY, useUser } from "./User";
 import LogIn from "./LogIn";
+import { useQuery } from "@apollo/client";
 
 export default function Header(){
-    const user = useUser();
+    const { data, loading, error } = useQuery(CURRENT_USER_QUERY);
+    {data && console.log(data)};
+    {error && console.log(error)};
+    {loading && console.log(loading)};
 
-    console.log(user);
     return(
         
         <div className="header">
@@ -30,6 +33,9 @@ export default function Header(){
                     <Link href="/cars">
                         <a>Cars</a>
                     </Link>
+                </li>
+                <li>
+                    <LogIn />
                 </li>
             </ul>}
             
